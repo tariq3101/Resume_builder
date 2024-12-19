@@ -46,6 +46,7 @@ const Signup = () => {
     };
 
     return (
+        <div className='signup-page'>
         <div className="signup-container">
             <h2>Register</h2>
             <form onSubmit={handleSignup}>
@@ -71,9 +72,13 @@ const Signup = () => {
                     required
                 />
                 <button type="submit">Register</button>
+                <a className="login-now" href="/login">
+                    Already have an account? Login now!
+                </a>
             </form>
             {error && <p className="signup-error">{error}</p>}
             <ToastContainer />
+        </div>
         </div>
     );
 };

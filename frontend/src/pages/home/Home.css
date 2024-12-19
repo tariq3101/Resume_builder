@@ -20,6 +20,8 @@ body {
   padding: 15px 30px;
   background-color: #2C3E50;
   color: white;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .logo h2 {
@@ -65,6 +67,9 @@ body {
   color: white;
   text-align: center;
   padding: 60px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 17px;
 }
 
 .hero-section h1 {
@@ -94,6 +99,11 @@ body {
 
 /* Templates Section */
 .templates-container {
+  background: linear-gradient(135deg, #2C3E50, #1ABC9C);
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 17px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -108,7 +118,13 @@ body {
   overflow: hidden;
   width: 250px;
   transition: box-shadow 0.3s ease;
+  margin-bottom: 10px;
 }
+
+.template-card.selected {
+  border: 3px solid rgb(35, 4, 4); /* Highlight the selected template */
+}
+
 
 .template-card:hover {
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
@@ -175,25 +191,94 @@ body {
 
 /* Features Section */
 .features-section {
-  background-color: #ffffff;
-  padding: 40px 20px;
+  background: linear-gradient(135deg, #2C3E50, #1ABC9C);
+  color: white;
+  padding: 50px 20px;
   text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
 }
 
 .features-section h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
 }
 
 .features-section ul {
   list-style: none;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 0;
 }
 
 .features-section li {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 10px;
+  width: 280px; /* Adjusts the feature card width */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: #34495E;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
 }
+
+.features-section li:hover {
+  transform: translateY(-30px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.features-section li .feature-icon {
+  font-size: 2rem;
+  background-color: #1ABC9C;
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+}
+
+.features-section li p {
+  font-size: 1rem;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .features-section h2 {
+    font-size: 2rem;
+  }
+
+  .features-section ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .features-section li {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .features-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .features-section li {
+    font-size: 1rem;
+    width: 100%;
+  }
+}
+
 
 /* Contact Section */
 .contact-section {

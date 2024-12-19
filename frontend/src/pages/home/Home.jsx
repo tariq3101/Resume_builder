@@ -2,74 +2,106 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import './Home.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const ResumeTemplates = ({ onTemplateSelect }) => {
+const ResumeTemplates = () => {
+    // List of templates
     const templates = [
         { id: 1, name: 'Template 1', image: '/path/to/template1.jpg' },
         { id: 2, name: 'Template 2', image: '/path/to/template2.jpg' },
         { id: 3, name: 'Template 3', image: '/path/to/template3.jpg' },
     ];
 
-    const [selectedTemplate, setSelectedTemplate] = useState(null);
-    const [resumeTitle, setResumeTitle] = useState('');
-    const [error, setError] = useState('');
+    const [selectedTemplate, setSelectedTemplate] = useState(null); // Tracks selected template
+    const [title, settitle] = useState(''); // Stores the resume title
+    const [error, setError] = useState(''); // Error message for validation
 
-    const handleTemplateSelect = (templateId) => {
-        setSelectedTemplate(templateId);
-        setError('');
+    // Handles template selection
+    const selectTemplate = (templateId) => {
+        setSelectedTemplate(templateId); // Save the selected template ID
+        setError(''); // Clear any error messages
     };
 
-    const handleResumeTitleSubmit = () => {
-        if (!resumeTitle.trim()) {
-            setError('Resume title is required!');
+    // Handles form submission
+    const submitTitle = async () => {
+        if (!title.trim()) {
+            setError('Please enter a resume title.'); // Show error if title is empty
+            return;
+        }
+        if (!selectedTemplate) {
+            setError('Please select a template.'); // Show error if no template is selected
             return;
         }
 
-        if (selectedTemplate) {
-            onTemplateSelect({ templateId: selectedTemplate, title: resumeTitle });
-        } else {
-            setError('Please select a template before proceeding!');
+        // Pass the selected template and title to the parent component
+        //onTemplateSelect({ templateId: selectedTemplate, title: title });
+        try {
+            const res = await axios.post('http://localhost:5000/api/resume/create', { title },
+            { withCredentials: true });
+            toast.success('Resume created', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+                });
+        } catch (error) {
+            toast.error('OPeration failed!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+                });
         }
     };
 
     return (
         <div className="templates-container">
-            {/* <h1 className="templates-title">Choose a Resume Template</h1> */}
+            {/* <h1>Choose a Resume Template</h1> */}
+
+            {/* Template List */}
             <div className="templates-list">
                 {templates.map((template) => (
                     <div
                         key={template.id}
                         className={`template-card ${selectedTemplate === template.id ? 'selected' : ''}`}
-                        onClick={() => handleTemplateSelect(template.id)}
-                        tabIndex={0}
+                        onClick={() => selectTemplate(template.id)} // Select template on click
                     >
-                        <img
-                            className="template-image"
-                            src={template.image}
-                            alt={template.name}
-                        />
-                        <button className="choose-template-button">Choose</button>
+                        <img src={template.image} alt={template.name} className="template-image" />
+                        <p>{template.name}</p>
                     </div>
                 ))}
             </div>
+
+            {/* Resume Title Input */}
             {selectedTemplate && (
                 <div className="template-input">
-                    <label className="resume-title-label">
-                        Enter Resume Title:
-                        <input
-                            className="resume-title-input"
-                            type="text"
-                            value={resumeTitle}
-                            onChange={(e) => setResumeTitle(e.target.value)}
-                            placeholder="e.g., Software Engineer Resume"
-                        />
-                    </label>
-                    <button className="submit-template-button" onClick={handleResumeTitleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Enter Resume Title"
+                        value={title}
+                        onChange={(e) => settitle(e.target.value)} // Update title
+                        className="resume-title-input"
+                    />
+                    <button onClick={submitTitle} className="submit-button">
                         Submit
                     </button>
                 </div>
             )}
+
+            {/* Error Message */}
             {error && <p className="error-message">{error}</p>}
+            <ToastContainer />
         </div>
     );
 };
@@ -106,7 +138,7 @@ const Home = () => {
             });
             setIsLoggedIn(false);
             Cookies.remove('token');
-            window.location.href = '/login';
+            window.location.href = '/';
         } catch (error) {
             console.error('Logout failed:', error);
         }
@@ -126,13 +158,11 @@ const Home = () => {
                         </>
                     ) : (
                         <li>
-                            <button className="logout-btn" onClick={handleLogout}>
-                                Logout
-                            </button>
+                            <a href='#' onClick={handleLogout}>Logout</a>
                         </li>
                     )}
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#features">Resumes</a></li>
+                    <li><a href="#contact-section">Contact</a></li>
                 </ul>
                 <div className="hamburger" onClick={toggleMenu}>
                     <div className="bar"></div>
@@ -167,7 +197,7 @@ const Home = () => {
                 </ul>
             </section>
 
-            <section className="contact-section">
+            <section className="contact-section" id='contact-section'>
                 <h2>Contact Us</h2>
                 <p>Email: <a href="mailto:support@resumebuilder.com">support@resumebuilder.com</a></p>
                 <p>Phone: +1 (123) 456-7890</p>

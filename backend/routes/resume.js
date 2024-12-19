@@ -24,6 +24,7 @@ router.post('/create', verifyToken, async (req, res) => {
             certifications: certifications || []
         });
 
+        
         await resume.save();
         res.status(201).json(resume);
     } catch (error) {

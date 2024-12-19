@@ -45,6 +45,7 @@ const Login = () => {
     };
 
     return (
+        <div className='login-page'>
         <div className="login-container">
             <form onSubmit={handleLogin} aria-busy={loading} aria-disabled={loading} className="login-form">
                 <h2>Login</h2>
@@ -73,6 +74,7 @@ const Login = () => {
             </form>
             {error && <p className="login-error">{error}</p>}
             <ToastContainer />
+        </div>
         </div>
     );
 };
