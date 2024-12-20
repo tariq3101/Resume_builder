@@ -67,6 +67,10 @@ const resumeSchema = new mongoose.Schema({
             expiryDate: { type: Date },
         }
     ],
+    templateid: { 
+        type: String, 
+        required: true
+    },
     createdAt: { type: Date, default: Date.now },
 });
 

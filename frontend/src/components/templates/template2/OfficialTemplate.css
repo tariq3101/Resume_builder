@@ -1,0 +1,43 @@
+.official-container {
+    display: flex;
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+  }
+  
+  .official-sidebar {
+    width: 30%;
+    padding: 20px;
+    background: #f4f4f4;
+  }
+  
+  .official-main {
+    width: 70%;
+    padding: 20px;
+  }
+  
+  .official-sidebar h1 {
+    font-size: 1.5em;
+  }
+  
+  .official-sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .official-sidebar ul li {
+    background: #ddd;
+    margin: 5px 0;
+    padding: 5px 10px;
+  }
+  
+  .official-main h3 {
+    margin-top: 0;
+  }
+  
+  .official-main h4 {
+    margin-bottom: 5px;
+  }
+  

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import './Home.css';
@@ -12,14 +14,15 @@ const ResumeTemplates = () => {
         { id: 2, name: 'Template 2', image: '/path/to/template2.jpg' },
         { id: 3, name: 'Template 3', image: '/path/to/template3.jpg' },
     ];
+    const navigate = useNavigate();
 
-    const [selectedTemplate, setSelectedTemplate] = useState(null); // Tracks selected template
+    const [templateid, settemplateid] = useState(null); // Tracks selected template
     const [title, settitle] = useState(''); // Stores the resume title
     const [error, setError] = useState(''); // Error message for validation
 
     // Handles template selection
     const selectTemplate = (templateId) => {
-        setSelectedTemplate(templateId); // Save the selected template ID
+        settemplateid(templateId); // Save the selected template ID
         setError(''); // Clear any error messages
     };
 
@@ -29,15 +32,15 @@ const ResumeTemplates = () => {
             setError('Please enter a resume title.'); // Show error if title is empty
             return;
         }
-        if (!selectedTemplate) {
+        if (!templateid) {
             setError('Please select a template.'); // Show error if no template is selected
             return;
         }
 
         // Pass the selected template and title to the parent component
-        //onTemplateSelect({ templateId: selectedTemplate, title: title });
+        //onTemplateSelect({ templateId: templateid, title: title });
         try {
-            const res = await axios.post('http://localhost:5000/api/resume/create', { title },
+            const res = await axios.post('http://localhost:5000/api/resume/create', { title, templateid},
             { withCredentials: true });
             toast.success('Resume created', {
                 position: "top-center",
@@ -50,6 +53,8 @@ const ResumeTemplates = () => {
                 theme: "light",
                 //transition: Bounce,
                 });
+                localStorage.setItem('resumeTitle', title);
+                navigate('/resume');
         } catch (error) {
             toast.error('OPeration failed!', {
                 position: "top-center",
@@ -74,7 +79,7 @@ const ResumeTemplates = () => {
                 {templates.map((template) => (
                     <div
                         key={template.id}
-                        className={`template-card ${selectedTemplate === template.id ? 'selected' : ''}`}
+                        className={`template-card ${templateid === template.id ? 'selected' : ''}`}
                         onClick={() => selectTemplate(template.id)} // Select template on click
                     >
                         <img src={template.image} alt={template.name} className="template-image" />
@@ -84,7 +89,7 @@ const ResumeTemplates = () => {
             </div>
 
             {/* Resume Title Input */}
-            {selectedTemplate && (
+            {templateid && (
                 <div className="template-input">
                     <input
                         type="text"

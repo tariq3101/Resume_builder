@@ -4,7 +4,7 @@ const Resume = require('../models/Resume');
 const router = express.Router();
 
 router.post('/create', verifyToken, async (req, res) => {
-    const { title, personalInfo, education, workExperience, projects, skills, awards, certifications } = req.body;
+    const { title, personalInfo, education, workExperience, projects, skills, awards, certifications, templateid } = req.body;
 
     const existingResume = await Resume.findOne({ user: req.user.id, title });
     if (existingResume) {
@@ -21,7 +21,8 @@ router.post('/create', verifyToken, async (req, res) => {
             projects: projects || [],
             skills: skills || [],
             awards: awards || [],
-            certifications: certifications || []
+            certifications: certifications || [],
+            templateid
         });
 
         
