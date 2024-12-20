@@ -1,0 +1,111 @@
+/* Login Container */
+.login-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2C3E50, #1ABC9C); /* Gradient to match Home Page */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 150px auto; /* Adjusted margin for better vertical alignment */
+    padding: 40px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    font-size: 2rem;
+    color: #34495E;
+    font-weight: bold;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #34495E;
+    transition: border 0.3s ease;
+}
+
+.login-container input:focus {
+    border-color: #1ABC9C; /* Border color on focus */
+    outline: none;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #1ABC9C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.login-btn:hover {
+    background-color: #16A085;
+}
+
+.login-error {
+    color: #E74C3C;
+    font-size: 1rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .login-container {
+        padding: 30px 20px;
+    }
+
+    .login-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .login-container input {
+        padding: 10px 15px;
+    }
+
+    .login-btn {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .login-container {
+        margin-top: 100px;
+        padding: 20px 15px;
+    }
+
+    .login-container h2 {
+        font-size: 1.6rem;
+    }
+
+    .login-btn {
+        padding: 10px;
+        font-size: 1rem;
+    }
+}

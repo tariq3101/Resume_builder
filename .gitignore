@@ -1,0 +1,50 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+
+# Node.js (Frontend and Backend)
+frontend/node_modules/
+backend/node_modules/
+
+# Build output
+frontend/dist/
+frontend/build/
+backend/dist/
+backend/build/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+backend/.env
+backend/.env.local
+backend/.env.*.local
+
+# Logs
+frontend/npm-debug.log*
+backend/npm-debug.log*
+frontend/yarn-debug.log*
+backend/yarn-debug.log*
+frontend/yarn-error.log*
+backend/yarn-error.log*
+
+# IDE/Editor specific
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Custom configuration files
+frontend/*.config.js
+backend/*.config.js
+frontend/*.config.json
+backend/*.config.json

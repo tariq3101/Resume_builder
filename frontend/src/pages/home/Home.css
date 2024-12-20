@@ -1,0 +1,372 @@
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5F5;
+  color: #34495E;
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #2C3E50;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.logo h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+  background-color: #1ABC9C;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  width: 30px;
+  height: 4px;
+  background-color: white;
+  margin: 5px 0;
+  border-radius: 2px;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #2C3E50, #1ABC9C);
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 17px;
+}
+
+.hero-section h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  color: white;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #34495E;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #4f6478;
+  /* transform: matrix(1, -0.3, 0, 1, 0, 0); */
+}
+
+/* Templates Section */
+.templates-container {
+  background: linear-gradient(135deg, #2C3E50, #1ABC9C);
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 17px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px 20px;
+}
+
+.template-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 250px;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.template-card.selected {
+  border: 3px solid rgb(35, 4, 4); /* Highlight the selected template */
+}
+
+
+.template-card:hover {
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.template-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.template-card button {
+  background-color: #1ABC9C;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.template-card button:hover {
+  background-color: #16A085;
+}
+
+/* Input Section */
+.template-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.template-input input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 400px;
+  margin-bottom: 15px;
+}
+
+.template-input button {
+  background-color: #1ABC9C;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.template-input button:hover {
+  background-color: #16A085;
+}
+
+.error-message {
+  color: #E74C3C;
+  font-size: 0.9rem;
+}
+
+/* Features Section */
+.features-section {
+  background: linear-gradient(135deg, #2C3E50, #1ABC9C);
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.features-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+.features-section ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.features-section li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  width: 280px; /* Adjusts the feature card width */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: #34495E;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.features-section li:hover {
+  transform: translateY(-30px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  /* transform: rotateY(180deg); */
+  /* transform: scale3d(2,2,2) */
+}
+
+.features-section li .feature-icon {
+  font-size: 2rem;
+  background-color: #1ABC9C;
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+}
+
+.features-section li p {
+  font-size: 1rem;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .features-section h2 {
+    font-size: 2rem;
+  }
+
+  .features-section ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .features-section li {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .features-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .features-section li {
+    font-size: 1rem;
+    width: 100%;
+  }
+}
+
+
+/* Contact Section */
+.contact-section {
+  background-color: #F5F5F5;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.contact-section p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Footer */
+.footer {
+  background-color: #2C3E50;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #2C3E50;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .templates-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+
+  .cta-button {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+
+  .template-card {
+    width: 90%;
+  }
+
+  .template-input input {
+    width: 90%;
+  }
+}
