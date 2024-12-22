@@ -31,7 +31,7 @@ const Login = () => {
                 theme: "light",
             });
 
-            navigate('/');
+            navigate('/Dashboard');
         } catch (err) {
             toast.error('Login failed!', {
                 position: "top-center",

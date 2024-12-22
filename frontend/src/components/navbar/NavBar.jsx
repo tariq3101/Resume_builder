@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import './Home.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-const Home = () => {
+const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -45,9 +41,10 @@ const Home = () => {
         }
     };
 
-    return (
-        <div className="home-page">
-            <nav className="navbar">
+
+  return (
+    <div className='nbar'>
+      <nav className="navbar">
                 <div className="logo">
                     <h2>Resume Builder</h2>
                 </div>
@@ -71,37 +68,8 @@ const Home = () => {
                     <div className="bar"></div>
                 </div>
             </nav>
+    </div>
+  )
+}
 
-            <section className="hero-section">
-                <h1>Welcome to Resume Builder</h1>
-                <p>Build your professional resume in minutes, totally free!</p>
-                <a href="login">
-                    <button className="cta-button">Start Now</button>
-                </a>
-            </section>
-
-            <section className="features-section">
-                <h2>Features</h2>
-                <ul>
-                    <li>✅ Simple and Easy to Use</li>
-                    <li>✅ Auto-Save Feature</li>
-                    <li>✅ Real-Time Updates</li>
-                    <li>✅ Modern and Professional UI</li>
-                </ul>
-            </section>
-
-            <section className="contact-section" id='contact-section'>
-                <h2>Contact Us</h2>
-                <p>Email: <a href="mailto:support@resumebuilder.com">support@resumebuilder.com</a></p>
-                <p>Phone: +1 (123) 456-7890</p>
-                <p>Address: 123 Resume Street, Web City, CodeLand</p>
-            </section>
-
-            <footer className="footer">
-                <p>&copy; {new Date().getFullYear()} Resume Builder. All Rights Reserved.</p>
-            </footer>
-        </div>
-    );
-};
-
-export default Home;
+export default NavBar

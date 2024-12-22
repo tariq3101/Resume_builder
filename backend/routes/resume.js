@@ -101,4 +101,24 @@ router.get('/:resumeId', verifyToken, async (req, res) => {
     }
 });
 
+router.delete('/delete/:resumeId', verifyToken, async (req, res) => {
+    const { resumeId } = req.params; 
+
+    try {
+        const deletedResume = await Resume.findOneAndDelete({
+            _id: resumeId,
+            user: req.user.id 
+        });
+
+        if (!deletedResume) {
+            return res.status(404).json({ message: 'Resume not found or not authorized to delete' });
+        }
+
+        res.status(200).json({ message: 'Resume deleted successfully', resume: deletedResume });
+    } catch (error) {
+        console.error('Error deleting resume:', error);
+        res.status(500).json({ message: 'Error deleting resume', error: error.message });
+    }
+});
+
 module.exports = router;

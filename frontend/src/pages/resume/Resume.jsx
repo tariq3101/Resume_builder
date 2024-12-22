@@ -1,66 +1,67 @@
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ProfessionalTemplate from "../../components/templates/template1/ProfessionalTemplate";
 import OfficialTemplate from "../../components/templates/template2/OfficialTemplate";
 import ElegantTemplate from "../../components/templates/template3/ElegantTemplate";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
 import "./Resume.css";
 
 const Resume = () => {
-    const [template, setTemplate] = useState("professional");
+    const location = useLocation();
+    const { resume } = location.state || {};
+
     const [formData, setFormData] = useState({
-        title: "",
-        personalInfo: {
+        title: resume?.title || "",
+        personalInfo: resume?.personalInfo || {
             fullName: "",
             email: "",
             phone: "",
             address: "",
             website: "",
-            links: [""],
-            jobRole: "",
+            links: [""] // Default to one empty link field
         },
-        education: [
+        education: resume?.education || [
             {
                 school: "",
                 degree: "",
                 fieldOfStudy: "",
                 startDate: "",
                 endDate: "",
-                grade: "",
-            },
+                grade: ""
+            }
         ],
-        workExperience: [
+        workExperience: resume?.workExperience || [
             {
                 company: "",
                 role: "",
                 description: "",
                 startDate: "",
-                endDate: "",
-            },
+                endDate: ""
+            }
         ],
-        skills: [""],
-        projects: [
+        skills: resume?.skills || [""], // Corrected typo
+        projects: resume?.projects || [
             {
                 title: "",
                 description: "",
-                link: "",
-            },
+                link: ""
+            }
         ],
-        awards: [
+        awards: resume?.awards || [
             {
-                title: "",
-                organization: "",
-                date: "",
-            },
+                name: "",
+                description: ""
+            }
         ],
-        certifications: [
+        certifications: resume?.certifications || [
             {
                 name: "",
                 issuer: "",
                 issueDate: "",
-                expiryDate: "",
-            },
-        ],
+                expiryDate: ""
+            }
+        ]
     });
+    
 
     const [expandedSections, setExpandedSections] = useState({
         title: true,
@@ -73,191 +74,81 @@ const Resume = () => {
         certifications: false,
     });
 
-    const [title, setTitle] = useState('');
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        // Retrieve title from localStorage when the page loads
-        const savedTitle = localStorage.getItem('resumeTitle');
-        if (savedTitle) {
-            setTitle(savedTitle); // Set title if found
-        } else {
-            // Handle case where title is not available (e.g., navigate back)
-            navigate('/');
-        }
-    }, [navigate]);
-
-
     const toggleSection = (section) => {
-        setExpandedSections((prev) => ({
-            ...prev,
-            [section]: !prev[section]
-        }));
+        setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
     };
 
-    const handleAddLinkField = () => {
-        setFormData((prevData) => ({
-            ...prevData,
-            personalInfo: {
-                ...prevData.personalInfo,
-                links: [...prevData.personalInfo.links, ""]
+    const updateArrayField = (fieldPath, action, index = null, newItem = null) => {
+        setFormData((prevData) => {
+            const updatedData = { ...prevData };
+            const fieldParts = fieldPath.split(".");
+            let target = updatedData;
+   
+            // Traverse the object path to find the target field
+            for (let i = 0; i < fieldParts.length - 1; i++) {
+                const key = fieldParts[i];
+                target[key] = { ...target[key] }; // Ensure immutability
+                target = target[key];
             }
-        }));
-    };
-
-    const handleRemoveLinkField = (index) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            personalInfo: {
-                ...prevData.personalInfo,
-                links: prevData.personalInfo.links.filter((_, idx) => idx !== index)
+   
+            const lastKey = fieldParts[fieldParts.length - 1];
+   
+            if (action === "add") {
+                target[lastKey] = [...(target[lastKey] || []), newItem]; // Add the new item
+            } else if (action === "remove" && index !== null) {
+                target[lastKey] = target[lastKey].filter((_, i) => i !== index); // Remove the item at index
             }
-        }));
-    };
-
-    // Handle adding a new work experience entry
-    const handleAddWorkExperience = () => {
-        setFormData((prevData) => ({
-            ...prevData,
-            workExperience: [
-                ...prevData.workExperience,
-                { company: "", role: "", description: "", startDate: "", endDate: "" }
-            ]
-        }));
-    };
-
-    // Handle removing a work experience entry
-    const handleRemoveWorkExperience = (index) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            workExperience: prevData.workExperience.filter((_, idx) => idx !== index)
-        }));
-    };
-
-    // Handle adding a new education entry
-    const handleAddEducation = () => {
-        setFormData((prevData) => ({
-            ...prevData,
-            education: [
-                ...prevData.education,
-                { school: "", degree: "", fieldOfStudy: "", startDate: "", endDate: "" }
-            ]
-        }));
-    };
-
-    // Handle removing an education entry
-    const handleRemoveEducation = (index) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            education: prevData.education.filter((_, idx) => idx !== index)
-        }));
-    };
-
-    // Handle adding a new skill
-    const handleAddSkill = () => {
-        setFormData((prevData) => ({
-            ...prevData,
-            skills: [...prevData.skills, ""]
-        }));
-    };
-
-    // Handle removing a skill
-    const handleRemoveSkill = (index) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            skills: prevData.skills.filter((_, idx) => idx !== index)
-        }));
-    };
-
-    // Handle adding a new project
-    const handleAddProject = () => {
-        setFormData((prevData) => ({
-            ...prevData,
-            projects: [
-                ...prevData.projects,
-                { title: "", description: "", link: "" }
-            ]
-        }));
-    };
-
-    // Handle removing a project
-    const handleRemoveProject = (index) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            projects: prevData.projects.filter((_, idx) => idx !== index)
-        }));
-    };
-
-    // Handle adding a new award
-    const handleAddAward = () => {
-        setFormData((prevData) => ({
-            ...prevData,
-            awards: [...prevData.awards, { name: "", description: "" }]
-        }));
-    };
-
-    // Handle removing an award
-    const handleRemoveAward = (index) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            awards: prevData.awards.filter((_, idx) => idx !== index)
-        }));
-    };
-
-    // Handle adding a new certification
-    const handleAddCertification = () => {
-        setFormData((prevData) => ({
-            ...prevData,
-            certifications: [
-                ...prevData.certifications,
-                { name: "", description: "" }
-            ]
-        }));
-    };
-
-    // Handle removing a certification
-    const handleRemoveCertification = (index) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            certifications: prevData.certifications.filter((_, idx) => idx !== index)
-        }));
-    };
-
-
-    const handleInputChange = (section, field, value, index = null) => {
-        // Handle date formatting for startDate and endDate fields
-        if (field === 'startDate' || field === 'endDate') {
-          value = new Date(value).toISOString(); // Convert date to ISO string
-        }
-      
-        setFormData((prevState) => {
-          const updatedData = { ...prevState };
-      
-          if (section === 'workExperience' || section === 'education') {
-            // Handle startDate and endDate for array items
-            if (index !== null) {
-              updatedData[section][index] = {
-                ...updatedData[section][index],
-                [field]: value,
-              };
-            }
-          } else {
-            // Handle non-array fields like personal info
-            updatedData[section][field] = value;
-          }
-      
-          return updatedData;
+   
+            return updatedData;
         });
-      };
-      
+    };
+   
+
+    // Add and remove functions for dynamic fields
+    const addFieldHandlers = {
+        personalInfoLinks: () => updateArrayField("personalInfo.links", "add", null, "https://"),
+        workExperience: () => updateArrayField("workExperience", "add", null, { company: "", role: "", description: "", startDate: "", endDate: "" }),
+        education: () => updateArrayField("education", "add", null, { school: "", degree: "", fieldOfStudy: "", startDate: "", endDate: "" }),
+        skills: () => updateArrayField("skills", "add", null, ""),
+        projects: () => updateArrayField("projects", "add", null, { title: "", description: "", link: "" }),
+        awards: () => updateArrayField("awards", "add", null, { name: "", description: "" }),
+        certifications: () => updateArrayField("certifications", "add", null, { name: "", issuer: "", issueDate: "", expiryDate: "" }),
+    };
+
+    const removeFieldHandlers = {
+        personalInfoLinks: (index) => updateArrayField("personalInfo.links", "remove", index),
+        workExperience: (index) => updateArrayField("workExperience", "remove", index),
+        education: (index) => updateArrayField("education", "remove", index),
+        skills: (index) => updateArrayField("skills", "remove", index),
+        projects: (index) => updateArrayField("projects", "remove", index),
+        awards: (index) => updateArrayField("awards", "remove", index),
+        certifications: (index) => updateArrayField("certifications", "remove", index),
+    };
+
+
+    // Handle input changes dynamically
+    const handleInputChange = (section, field, value, index = null) => {
+        setFormData(prevData => {
+            const updatedData = { ...prevData };
+            if (Array.isArray(updatedData[section])) {
+                if (index !== null) {
+                    updatedData[section][index] = { ...updatedData[section][index], [field]: value };
+                }
+            } else {
+                updatedData[section][field] = value;
+            }
+            return updatedData;
+        });
+    };
 
     const renderTemplate = () => {
-        switch (template) {
-            case "professional":
+        console.log(resume.templateid)
+        switch (resume.templateid) {
+            case "1":
                 return <ProfessionalTemplate {...formData} />;
-            case "official":
+            case "2":
                 return <OfficialTemplate {...formData} />;
-            case "elegant":
+            case "3":
                 return <ElegantTemplate {...formData} />;
             default:
                 return null;
@@ -274,107 +165,75 @@ const Resume = () => {
                     {/* Title */}
                     <div className="form-section">
                         <div className="form-section-header" onClick={() => toggleSection("title")}>
-                            <h3>Resume Title</h3>
+                            <h3>Title</h3>
                             <span className={`arrow ${expandedSections.title ? "down" : ""}`}>&#9662;</span>
                         </div>
                         {expandedSections.title && (
                             <div className="form-section-body">
                                 <input
                                     type="text"
-                                    placeholder="Resume Title"
-                                    value={title}
-                                    onChange={(e) => handleInputChange("title", "title", e.target.value)} // Dynamically update formData
+                                    placeholder="Title"
+                                    value={formData.title}
+                                    onChange={(e) => handleInputChange("title", "title", e.target.value)}
                                 />
                             </div>
                         )}
                     </div>
 
-
-                    {/* Personal Info */}
+                    {/* Personal Information */}
                     <div className="form-section">
                         <div className="form-section-header" onClick={() => toggleSection("personalInfo")}>
-                            <h3>Personal Information</h3>
+                            <h3>Personal Info</h3>
                             <span className={`arrow ${expandedSections.personalInfo ? "down" : ""}`}>&#9662;</span>
                         </div>
                         {expandedSections.personalInfo && (
                             <div className="form-section-body">
-                                <input
-                                    type="text"
-                                    placeholder="Full Name"
-                                    value={formData.personalInfo.fullName}
-                                    onChange={(e) =>
-                                        handleInputChange("personalInfo", "fullName", e.target.value)
-                                    }
-                                />
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    value={formData.personalInfo.email}
-                                    onChange={(e) =>
-                                        handleInputChange("personalInfo", "email", e.target.value)
-                                    }
-                                />
-                                <input
-                                    type="tel"
-                                    placeholder="Phone"
-                                    value={formData.personalInfo.phone}
-                                    onChange={(e) =>
-                                        handleInputChange("personalInfo", "phone", e.target.value)
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Address"
-                                    value={formData.personalInfo.address}
-                                    onChange={(e) =>
-                                        handleInputChange("personalInfo", "address", e.target.value)
-                                    }
-                                />
-                                <input
-                                    type="url"
-                                    placeholder="Website"
-                                    value={formData.personalInfo.website}
-                                    onChange={(e) =>
-                                        handleInputChange("personalInfo", "website", e.target.value)
-                                    }
-                                />
+                                {[
+                                    { type: "text", placeholder: "Full Name", key: "fullName" },
+                                    { type: "email", placeholder: "Email", key: "email" },
+                                    { type: "tel", placeholder: "Phone", key: "phone" },
+                                    { type: "text", placeholder: "Address", key: "address" },
+                                    { type: "url", placeholder: "Website", key: "website" },
+                                ].map((field) => (
+                                    <input
+                                        key={field.key}
+                                        type={field.type}
+                                        placeholder={field.placeholder}
+                                        value={formData.personalInfo[field.key]}
+                                        onChange={(e) => handleInputChange("personalInfo", field.key, e.target.value)}
+                                    />
+                                ))}
 
-                                {/* Links section */}
-                                <div className="links-section">
-                                    {formData.personalInfo.links.map((link, index) => (
-                                        <div key={index} className="link-input-field">
-                                            <input
-                                                type="url"
-                                                placeholder={`Link ${index + 1}`}
-                                                value={link}
-                                                onChange={(e) =>
-                                                    handleInputChange("personalInfo", "links", e.target.value, index)
-                                                }
-                                            />
-                                        </div>
-                                    ))}
-                                    {formData.personalInfo.links.length < 5 && (
+                                {/* Links */}
+                                {formData.personalInfo.links.map((link, idx) => (
+                                    <div key={idx}>
+                                        <input
+                                            type="url"
+                                            placeholder={`Link ${idx + 1}`}
+                                            value={link}
+                                            onChange={(e) =>
+                                                handleInputChange("personalInfo", `links[${idx}]`, e.target.value)
+                                            }
+                                        />
                                         <button
-                                            className="add-link-button"
-                                            onClick={() => handleAddLinkField()}
+                                            type="button"
+                                            onClick={() => removeFieldHandlers.personalInfoLinks(idx)}
                                         >
-                                            + Add Link
+                                            Remove Link
                                         </button>
-                                    )}
-                                </div>
+                                    </div>
+                                ))}
+                                <button type="button" onClick={addFieldHandlers.personalInfoLinks}>
+                                    + Add Link
+                                </button>
 
-                                <input
-                                    type="text"
-                                    placeholder="Job Role"
-                                    value={formData.personalInfo.jobRole}
-                                    onChange={(e) =>
-                                        handleInputChange("personalInfo", "jobRole", e.target.value)
-                                    }
-                                />
+
+
+
+
                             </div>
                         )}
                     </div>
-
 
                     {/* Work Experience */}
                     <div className="form-section">
@@ -389,47 +248,37 @@ const Resume = () => {
                             <div className="form-section-body">
                                 {formData.workExperience.map((exp, idx) => (
                                     <div key={idx} className="array-item">
-                                        <input
-                                            type="text"
-                                            placeholder="Company"
-                                            value={exp.company}
-                                            onChange={(e) =>
-                                                handleInputChange("workExperience", "company", e.target.value, idx)
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="Role"
-                                            value={exp.role}
-                                            onChange={(e) =>
-                                                handleInputChange("workExperience", "role", e.target.value, idx)
-                                            }
-                                        />
-                                        <textarea
-                                            placeholder="Description"
-                                            value={exp.description}
-                                            onChange={(e) =>
-                                                handleInputChange("workExperience", "description", e.target.value, idx)
-                                            }
-                                        />
-
-                                        <input
-                                            type="date"
-                                            value={exp.startDate}
-                                            onChange={(e) =>
-                                                handleInputChange("workExperience", "startDate", e.target.value, idx)
-                                            }
-                                        />
-                                        <input
-                                            type="date"
-                                            value={exp.endDate}
-                                            onChange={(e) =>
-                                                handleInputChange("workExperience", "endDate", e.target.value, idx)
-                                            }
-                                        />
+                                        {[
+                                            { type: "text", placeholder: "Company", key: "company" },
+                                            { type: "text", placeholder: "Role", key: "role" },
+                                            { type: "textarea", placeholder: "Description", key: "description" },
+                                            { type: "date", placeholder: "Start Date", key: "startDate" },
+                                            { type: "date", placeholder: "End Date", key: "endDate" },
+                                        ].map((field) => (
+                                            field.type === "textarea" ? (
+                                                <textarea
+                                                    key={field.key}
+                                                    placeholder={field.placeholder}
+                                                    value={exp[field.key]}
+                                                    onChange={(e) =>
+                                                        handleInputChange("workExperience", field.key, e.target.value, idx)
+                                                    }
+                                                />
+                                            ) : (
+                                                <input
+                                                    key={field.key}
+                                                    type={field.type}
+                                                    placeholder={field.placeholder}
+                                                    value={exp[field.key]}
+                                                    onChange={(e) =>
+                                                        handleInputChange("workExperience", field.key, e.target.value, idx)
+                                                    }
+                                                />
+                                            )
+                                        ))}
                                         <button
                                             className="remove-item-button"
-                                            onClick={() => handleRemoveWorkExperience(idx)}
+                                            onClick={() => removeFieldHandlers.workExperience(idx)}
                                         >
                                             Remove
                                         </button>
@@ -437,14 +286,13 @@ const Resume = () => {
                                 ))}
                                 <button
                                     className="add-item-button"
-                                    onClick={() => handleAddWorkExperience()}
+                                    onClick={addFieldHandlers.workExperience}
                                 >
                                     + Add Work Experience
                                 </button>
                             </div>
                         )}
                     </div>
-
 
                     {/* Education */}
                     <div className="form-section">
@@ -459,47 +307,26 @@ const Resume = () => {
                             <div className="form-section-body">
                                 {formData.education.map((edu, idx) => (
                                     <div key={idx} className="array-item">
-                                        <input
-                                            type="text"
-                                            placeholder="School"
-                                            value={edu.school}
-                                            onChange={(e) =>
-                                                handleInputChange("education", "school", e.target.value, idx)
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="Degree"
-                                            value={edu.degree}
-                                            onChange={(e) =>
-                                                handleInputChange("education", "degree", e.target.value, idx)
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            placeholder="Field of Study"
-                                            value={edu.fieldOfStudy}
-                                            onChange={(e) =>
-                                                handleInputChange("education", "fieldOfStudy", e.target.value, idx)
-                                            }
-                                        />
-                                        <input
-                                            type="date"
-                                            value={edu.startDate}
-                                            onChange={(e) =>
-                                                handleInputChange("education", "startDate", e.target.value, idx)
-                                            }
-                                        />
-                                        <input
-                                            type="date"
-                                            value={edu.endDate}
-                                            onChange={(e) =>
-                                                handleInputChange("education", "endDate", e.target.value, idx)
-                                            }
-                                        />
+                                        {[
+                                            { type: "text", placeholder: "School", key: "school" },
+                                            { type: "text", placeholder: "Degree", key: "degree" },
+                                            { type: "text", placeholder: "Field of Study", key: "fieldOfStudy" },
+                                            { type: "date", placeholder: "Start Date", key: "startDate" },
+                                            { type: "date", placeholder: "End Date", key: "endDate" },
+                                        ].map((field) => (
+                                            <input
+                                                key={field.key}
+                                                type={field.type}
+                                                placeholder={field.placeholder}
+                                                value={edu[field.key]}
+                                                onChange={(e) =>
+                                                    handleInputChange("education", field.key, e.target.value, idx)
+                                                }
+                                            />
+                                        ))}
                                         <button
                                             className="remove-item-button"
-                                            onClick={() => handleRemoveEducation(idx)}
+                                            onClick={() => removeFieldHandlers.education(idx)}
                                         >
                                             Remove
                                         </button>
@@ -507,7 +334,7 @@ const Resume = () => {
                                 ))}
                                 <button
                                     className="add-item-button"
-                                    onClick={() => handleAddEducation()}
+                                    onClick={addFieldHandlers.education}
                                 >
                                     + Add Education
                                 </button>
@@ -529,13 +356,11 @@ const Resume = () => {
                                             type="text"
                                             placeholder={`Skill ${idx + 1}`}
                                             value={skill}
-                                            onChange={(e) =>
-                                                handleInputChange("skills", idx, e.target.value)
-                                            }
+                                            onChange={(e) => handleInputChange("skills", idx, e.target.value)}
                                         />
                                         <button
                                             className="remove-item-button"
-                                            onClick={() => handleRemoveSkill(idx)}
+                                            onClick={() => removeFieldHandlers.skills(idx)}
                                         >
                                             Remove
                                         </button>
@@ -543,14 +368,13 @@ const Resume = () => {
                                 ))}
                                 <button
                                     className="add-item-button"
-                                    onClick={() => handleAddSkill()}
+                                    onClick={addFieldHandlers.skills}
                                 >
                                     + Add Skill
                                 </button>
                             </div>
                         )}
                     </div>
-
 
                     {/* Projects */}
                     <div className="form-section">
@@ -562,32 +386,35 @@ const Resume = () => {
                             <div className="form-section-body">
                                 {formData.projects.map((project, idx) => (
                                     <div key={idx} className="array-item">
-                                        <input
-                                            type="text"
-                                            placeholder="Project Title"
-                                            value={project.title}
-                                            onChange={(e) =>
-                                                handleInputChange("projects", "title", e.target.value, idx)
-                                            }
-                                        />
-                                        <textarea
-                                            placeholder="Project Description"
-                                            value={project.description}
-                                            onChange={(e) =>
-                                                handleInputChange("projects", "description", e.target.value, idx)
-                                            }
-                                        />
-                                        <input
-                                            type="url"
-                                            placeholder="Project Link"
-                                            value={project.link}
-                                            onChange={(e) =>
-                                                handleInputChange("projects", "link", e.target.value, idx)
-                                            }
-                                        />
+                                        {[
+                                            { type: "text", placeholder: "Project Title", key: "title" },
+                                            { type: "textarea", placeholder: "Project Description", key: "description" },
+                                            { type: "url", placeholder: "Project Link", key: "link" },
+                                        ].map((field) =>
+                                            field.type === "textarea" ? (
+                                                <textarea
+                                                    key={field.key}
+                                                    placeholder={field.placeholder}
+                                                    value={project[field.key]}
+                                                    onChange={(e) =>
+                                                        handleInputChange("projects", field.key, e.target.value, idx)
+                                                    }
+                                                />
+                                            ) : (
+                                                <input
+                                                    key={field.key}
+                                                    type={field.type}
+                                                    placeholder={field.placeholder}
+                                                    value={project[field.key]}
+                                                    onChange={(e) =>
+                                                        handleInputChange("projects", field.key, e.target.value, idx)
+                                                    }
+                                                />
+                                            )
+                                        )}
                                         <button
                                             className="remove-item-button"
-                                            onClick={() => handleRemoveProject(idx)}
+                                            onClick={() => removeFieldHandlers.projects(idx)}
                                         >
                                             Remove
                                         </button>
@@ -595,7 +422,7 @@ const Resume = () => {
                                 ))}
                                 <button
                                     className="add-item-button"
-                                    onClick={() => handleAddProject()}
+                                    onClick={addFieldHandlers.projects}
                                 >
                                     + Add Project
                                 </button>
@@ -628,9 +455,16 @@ const Resume = () => {
                                                 handleInputChange("awards", "description", e.target.value, idx)
                                             }
                                         />
+                                        <input
+                                        type="date"
+                                        value={award.date}
+                                        onChange={(e) =>
+                                            handleInputChange("awards", "date", e.target.value, idx)
+                                        }
+                                        />
                                         <button
                                             className="remove-item-button"
-                                            onClick={() => handleRemoveAward(idx)}
+                                            onClick={() => removeFieldHandlers.awards(idx)}
                                         >
                                             Remove
                                         </button>
@@ -638,7 +472,7 @@ const Resume = () => {
                                 ))}
                                 <button
                                     className="add-item-button"
-                                    onClick={() => handleAddAward()}
+                                    onClick={addFieldHandlers.awards}
                                 >
                                     + Add Award
                                 </button>
@@ -665,15 +499,23 @@ const Resume = () => {
                                             }
                                         />
                                         <textarea
-                                            placeholder="Certification Description"
-                                            value={cert.description}
+                                            placeholder="Certification Issuer"
+                                            value={cert.issuer}
                                             onChange={(e) =>
-                                                handleInputChange("certifications", "description", e.target.value, idx)
+                                                handleInputChange("certifications", "issuer", e.target.value, idx)
                                             }
+                                        />
+                                        <input
+                                            placeholder="Issuer date"
+                                            type="date"
+                                            value={cert.issueDate}
+                                            onChange={(e) =>
+                                                handleInputChange("certifications", "issueDate", e.target.value, idx)
+                                                }
                                         />
                                         <button
                                             className="remove-item-button"
-                                            onClick={() => handleRemoveCertification(idx)}
+                                            onClick={() => removeFieldHandlers.certifications(idx)}
                                         >
                                             Remove
                                         </button>
@@ -681,7 +523,7 @@ const Resume = () => {
                                 ))}
                                 <button
                                     className="add-item-button"
-                                    onClick={() => handleAddCertification()}
+                                    onClick={addFieldHandlers.certifications}
                                 >
                                     + Add Certification
                                 </button>
@@ -690,7 +532,7 @@ const Resume = () => {
                     </div>
                 </div>
 
-                {/* Right Panel */}
+                {/* Right Panel (Preview) */}
                 <div className="preview-panel">
                     <h2>Preview</h2>
                     {renderTemplate()}

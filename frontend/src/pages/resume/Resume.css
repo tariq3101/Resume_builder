@@ -1,317 +1,201 @@
 /* General Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-  
-  .resume-page {
-    background-color: #f4f7fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .resume-container {
-    display: flex;
-    width: 80%;
-    max-width: 1200px;
-    justify-content: space-between;
-    gap: 2rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-  }
-  
-  .form-panel {
-    flex: 1;
-    background-color: #fafafa;
-    border-radius: 8px;
-    padding: 1.5rem;
-    max-height: 700px;
-    overflow-y: auto;
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 1.5rem;
-  }
-  
-  h3 {
-    font-size: 1.2rem;
-    color: #333;
-    cursor: pointer;
-  }
-  
-  .arrow {
-    float: right;
-    transition: transform 0.3s ease;
-  }
-  
-  .arrow.down {
-    transform: rotate(180deg);
-  }
-  
-  .form-section {
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-section-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-top: 1rem;
-  }
-  
-  input,
-  textarea,
-  select {
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    width: 100%;
-  }
-  
-  input[type="date"] {
-    padding: 0.5rem;
-  }
-  
-  input[type="url"],
-  input[type="email"],
-  input[type="tel"] {
-    width: 100%;
-  }
-  
-  textarea {
-    height: 120px;
-    resize: none;
-  }
-  
-  button {
-    padding: 0.8rem 1.5rem;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #2980b9;
-  }
-  
-  .form-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #e0e0e0;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  .form-section-header:hover {
-    background-color: #d3d3d3;
-  }
-  
-  /* Form Array Items */
-  .array-item input,
-  .array-item textarea {
-    margin-bottom: 1rem;
-  }
-  
-  .array-item input[type="text"] {
-    width: 80%;
-  }
-  
-  .array-item textarea {
-    width: 80%;
-  }
-  
-  .array-item button {
-    margin-top: 1rem;
-  }
-  
-  /* Preview Panel */
-  .preview-panel {
-    flex: 1;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-height: 700px;
-    overflow-y: auto;
-  }
-  
-  .preview-panel h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 1.5rem;
-  }
-  
-  .preview-panel .resume-template {
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .preview-panel .resume-template .section-title {
-    font-weight: bold;
-    margin-top: 1rem;
-  }
-  
-  .preview-panel .resume-template .section-content {
-    margin-top: 0.5rem;
-  }
-  
-  .preview-panel .resume-template .personal-info {
-    margin-bottom: 1rem;
-  }
-  
-  .preview-panel .resume-template .work-experience,
-  .preview-panel .resume-template .education {
-    margin-bottom: 1.5rem;
-  }
-  
-  .preview-panel .resume-template .skills ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .preview-panel .resume-template .projects,
-  .preview-panel .resume-template .certifications,
-  .preview-panel .resume-template .awards {
-    margin-bottom: 1.5rem;
-  }
-  
-  .preview-panel .resume-template .project,
-  .preview-panel .resume-template .award,
-  .preview-panel .resume-template .certification {
-    margin-bottom: 1rem;
-  }
-  
-  .preview-panel .resume-template .project-title,
-  .preview-panel .resume-template .award-title,
-  .preview-panel .resume-template .certification-name {
-    font-weight: bold;
-  }
-  
-  .preview-panel .resume-template .project-link,
-  .preview-panel .resume-template .certification-link {
-    color: #3498db;
-    text-decoration: none;
-  }
-  
-  .preview-panel .resume-template .project-link:hover,
-  .preview-panel .resume-template .certification-link:hover {
-    text-decoration: underline;
-  }
-  
-  /* Basic container and layout styling */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f7fa;
+}
+
+.resume-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
 .resume-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .form-panel {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .form-section {
-    margin-bottom: 20px;
-  }
-  
-  .form-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  /* max-width: 1200px; */
+  gap: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.form-panel, .preview-panel {
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.form-panel {
+  flex: 1;
+  background-color: #fafafa;
+}
+
+.preview-panel {
+  flex: 3;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form Section */
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-section-header:hover {
+  background-color: #d3d3d3;
+}
+
+.form-section-header h3 {
+  margin: 0;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.arrow.down {
+  transform: rotate(180deg);
+}
+
+.form-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+input, textarea, select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  height: 120px;
+}
+
+input[type="date"] {
+  padding: 0.5rem;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.add-link-button,
+.add-work-button,
+.add-education-button,
+.add-skill-button,
+.add-project-button,
+.add-award-button,
+.add-certification-button {
+  background-color: #2196f3;
+  color: white;
+  margin-top: 10px;
+}
+
+.add-link-button:hover,
+.add-work-button:hover,
+.add-education-button:hover,
+.add-skill-button:hover,
+.add-project-button:hover,
+.add-award-button:hover,
+.add-certification-button:hover {
+  background-color: #1976d2;
+}
+
+/* Array Items */
+.array-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.array-item input,
+.array-item textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Preview Panel */
+.preview-panel .resume-template {
+  font-size: 1rem;
+  color: #333;
+}
+
+.preview-panel .resume-template .section-title {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.preview-panel .resume-template .section-content {
+  margin-top: 0.5rem;
+}
+
+.preview-panel .resume-template ul {
+  list-style: none;
+  padding: 0;
+}
+
+.preview-panel .resume-template a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.preview-panel .resume-template a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .resume-container {
     padding: 10px;
-    cursor: pointer;
-    background-color: #ddd;
-    border-radius: 5px;
-    margin-bottom: 5px;
-  }
-  
-  .form-section-header h3 {
-    margin: 0;
-  }
-  
-  .arrow {
-    transition: transform 0.3s ease;
-  }
-  
-  .arrow.down {
-    transform: rotate(180deg);
-  }
-  
-  .form-section-body {
-    display: flex;
     flex-direction: column;
-    gap: 15px;
-    padding: 10px 0;
   }
-  
-  .input-field,
-  .textarea-field {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-  }
-  
-  textarea {
-    resize: vertical;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Styling for the links section (dynamically added links) */
-  .links-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .link-input-field {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .link-input-field input {
-    flex: 1;
-  }
-  
-  /* Add button for dynamic fields */
+
   .add-link-button,
   .add-work-button,
   .add-education-button,
@@ -319,73 +203,16 @@
   .add-project-button,
   .add-award-button,
   .add-certification-button {
-    background-color: #2196f3;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
-  .add-link-button:hover,
-  .add-work-button:hover,
-  .add-education-button:hover,
-  .add-skill-button:hover,
-  .add-project-button:hover,
-  .add-award-button:hover,
-  .add-certification-button:hover {
-    background-color: #1976d2;
-  }
-  
-  /* Styling for dynamically added array items (e.g., work experience, education) */
-  .array-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .array-item input,
-  .array-item textarea {
     width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
   }
-  
-  /* Make the form responsive */
-  @media (max-width: 768px) {
-    .resume-container {
-      padding: 10px;
-    }
-  
-    .form-panel {
-      padding: 15px;
-    }
-  
-    .form-section-body {
-      gap: 10px;
-    }
-  
-    .add-link-button,
-    .add-work-button,
-    .add-education-button,
-    .add-skill-button,
-    .add-project-button,
-    .add-award-button,
-    .add-certification-button {
-      width: 100%;
-    }
+}
+
+@media (max-width: 480px) {
+  .resume-container {
+    padding: 5px;
   }
-  
-  @media (max-width: 480px) {
-    .resume-container {
-      padding: 5px;
-    }
-  
-    .form-panel {
-      padding: 10px;
-    }
+
+  .form-panel, .preview-panel {
+    padding: 10px;
   }
-  
+}
