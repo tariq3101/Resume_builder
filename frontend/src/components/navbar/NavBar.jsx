@@ -2,10 +2,12 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate()
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -41,10 +43,13 @@ const NavBar = () => {
         }
     };
 
+    const handleDashboard = async () => {
+        navigate("/Dashboard")
+    }
 
-  return (
-    <div className='nbar'>
-      <nav className="navbar">
+    return (
+        <div className='nbar'>
+            <nav className="navbar">
                 <div className="logo">
                     <h2>Resume Builder</h2>
                 </div>
@@ -59,7 +64,7 @@ const NavBar = () => {
                             <a href='#' onClick={handleLogout}>Logout</a>
                         </li>
                     )}
-                    <li><a href="#features">Resumes</a></li>
+                    <li><a href="" onClick={handleDashboard}>Resumes</a></li>
                     <li><a href="#contact-section">Contact</a></li>
                 </ul>
                 <div className="hamburger" onClick={toggleMenu}>
@@ -68,8 +73,8 @@ const NavBar = () => {
                     <div className="bar"></div>
                 </div>
             </nav>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default NavBar

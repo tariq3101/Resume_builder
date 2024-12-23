@@ -1,43 +1,133 @@
+/* General Layout */
 .official-container {
-    display: flex;
-    font-family: Arial, sans-serif;
-    max-width: 1000px;
-    margin: auto;
-    padding: 20px;
-    background: #fff;
+  display: flex;
+  margin: 20px auto;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  max-width: 1200px;
+}
+
+.official-sidebar {
+  width: 300px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-right: 2px solid #ddd;
+}
+
+.official-main {
+  flex: 1;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+h3 {
+  font-size: 1.2em;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+/* Personal Info */
+.name {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.job-role {
+  font-size: 1.3em;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.personal-links a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+.personal-links p {
+  font-size: 1em;
+  color: #3498db;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+/* Education & Work Experience */
+.education-item, .work-item {
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+  color: #7f8c8d;
+}
+
+/* Projects Section */
+.project-item h4 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.project-item p {
+  font-size: 1em;
+}
+
+.project-item a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+.project-item p strong {
+  font-weight: bold;
+}
+
+/* Awards Section */
+.awards-section h3 {
+  margin-top: 20px;
+}
+
+.award-item {
+  margin-bottom: 15px;
+}
+
+.award-item strong {
+  font-size: 1.1em;
+  color: #2c3e50;
+}
+
+.award-item p {
+  color: #7f8c8d;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .official-container {
+    flex-direction: column;
+    align-items: center;
   }
-  
+
   .official-sidebar {
-    width: 30%;
-    padding: 20px;
-    background: #f4f4f4;
+    width: 100%;
+    padding: 15px;
   }
-  
+
   .official-main {
-    width: 70%;
-    padding: 20px;
+    width: 100%;
+    padding: 15px;
   }
-  
-  .official-sidebar h1 {
-    font-size: 1.5em;
-  }
-  
-  .official-sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .official-sidebar ul li {
-    background: #ddd;
-    margin: 5px 0;
-    padding: 5px 10px;
-  }
-  
-  .official-main h3 {
-    margin-top: 0;
-  }
-  
-  .official-main h4 {
-    margin-bottom: 5px;
-  }
-  
+}

@@ -52,7 +52,7 @@ const Dashboard = () => {
       });
       const resume = res.data
       // localStorage.setItem('resumeTitle', title);
-      navigate(`/resume/${resume._id}`, { state: {resume} });
+      navigate(`/resume/${resume._id}`, { state: {resumeId: resume._id, templateId: resume.templateid} });
     } catch (error) {
       toast.error('OPeration failed!', {
         position: "top-center",
@@ -85,7 +85,7 @@ const Dashboard = () => {
   }, []);
 
   const handleCardClick = (resume) => {
-    navigate(`/resume/${resume._id}`, { state: {resume} });
+    navigate(`/resume/${resume._id}`, { state: {resumeId: resume._id, templateId: resume.templateid} });
   };
 
   return (

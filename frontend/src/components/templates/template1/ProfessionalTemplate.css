@@ -1,35 +1,69 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Georgia:wght@400;700&display=swap');
+
 .professional-container {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif; /* Primary font for body */
   line-height: 1.6;
-  padding: 20px;
-  background-color: #ffffff;
+  padding: 40px;
+  background-color: #f7f7f7; /* Light gray background for a soft, clean look */
   color: #333;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .professional-header {
   text-align: center;
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  border-bottom: 3px solid #ccc;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
 }
 
 .professional-header .name {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin: 0;
+  font-family: 'Georgia', serif; /* Serif font for name */
+  font-weight: bold;
+  color: #2e3d49; /* Darker color for the name */
 }
 
 .professional-header .role {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #555;
-  margin: 5px 0 10px;
+  margin: 10px 0;
+}
+
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  font-size: 1rem;
+}
+
+.contact-info p,
+.contact-info a {
+  margin: 5px 0;
+  color: #555;
+  text-align: center;
+}
+
+.contact-info a {
+  text-decoration: none;
+  color: #1a73e8; /* Professional blue color for links */
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
 }
 
 .links-section {
-  margin-top: 5px;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .links-section h3 {
@@ -39,13 +73,13 @@
 }
 
 .links-section p {
-  flex-direction: row;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: 5px 0;
 }
 
 .links-section a {
   color: #1a73e8;
+  font-size: 1rem;
   text-decoration: none;
 }
 
@@ -53,65 +87,145 @@
   text-decoration: underline;
 }
 
-
-.contact-info p {
-  margin: 0;
-  font-size: 0.9rem;
-}
-
+/* Section Styling */
 .professional-section {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  padding: 10px 0;
 }
 
 .professional-section h3 {
-  font-size: 1.4rem;
-  color: #222;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
+  font-size: 1.6rem;
+  color: #333;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-weight: 600;
 }
 
-.professional-work, .education-item, .certification-item, .award-item, .project-item {
+.professional-section ul {
+  padding-left: 20px;
+}
+
+.professional-section .section-item {
   margin-bottom: 15px;
 }
 
-.job-title, .education-item h4, .award-item strong, .project-item h4 {
-  font-size: 1.1rem;
+.job-title,
+.education-item h4,
+.award-item strong,
+.project-item h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
   color: #333;
-  margin: 0;
 }
 
-.work-description, .work-dates, .education-dates, .award-item p, .project-item p {
-  font-size: 0.9rem;
+.work-description,
+.work-dates,
+.education-dates,
+.award-item p,
+.project-item p {
+  font-size: 1rem;
   color: #666;
+  margin: 5px 0;
 }
 
 .skills-list {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .skill-item {
-  display: inline-block;
-  background-color: #f0f0f0;
-  margin: 5px;
-  padding: 5px 10px;
-  border-radius: 3px;
-  font-size: 0.9rem;
+  background-color: #e1e1e1;
+  padding: 6px 16px;
+  border-radius: 25px;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
 }
 
-.certification-item, .award-item, .project-item {
-  font-size: 0.9rem;
+.certification-item,
+.award-item,
+.project-item {
+  font-size: 1rem;
   color: #444;
+}
+
+.certification-item strong,
+.award-item strong,
+.project-item h4 {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.project-item p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.project-item a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.project-item a:hover {
+  text-decoration: underline;
+}
+
+/* Divider between sections */
+.professional-section:not(:last-child) {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+/* Contact Icons - You can use FontAwesome or another icon library for contact details */
+.contact-info i {
+  margin-right: 10px;
+  color: #555;
+}
+
+.contact-info a i {
+  margin-right: 5px;
 }
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .professional-container {
-    padding: 10px;
+    padding: 20px;
   }
   .professional-header .name {
-    font-size: 1.5rem;
+    font-size: 2rem;
+  }
+  .professional-header .role {
+    font-size: 1.2rem;
+  }
+  .professional-section h3 {
+    font-size: 1.4rem;
+  }
+  .links-section {
+    flex-direction: column;
+  }
+  .links-section p {
+    font-size: 0.9rem;
+  }
+  .skill-item {
+    font-size: 0.9rem;
+    padding: 4px 12px;
+  }
+  .contact-info {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 500px) {
+  .professional-container {
+    padding: 15px;
+  }
+  .professional-header .name {
+    font-size: 1.8rem;
   }
   .professional-header .role {
     font-size: 1rem;
@@ -119,7 +233,15 @@
   .professional-section h3 {
     font-size: 1.2rem;
   }
-  .skills-list {
-    padding-left: 20px;
+  .links-section p {
+    font-size: 0.8rem;
+  }
+  .skill-item {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+  }
+  .contact-info {
+    flex-direction: column;
+    align-items: center;
   }
 }

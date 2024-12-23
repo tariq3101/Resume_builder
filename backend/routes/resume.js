@@ -37,7 +37,8 @@ router.post('/create', verifyToken, async (req, res) => {
 // PATCH /api/resumes/update - Update a user's resume data (incremental save)
 router.patch('/update/:resumeId', verifyToken, async (req, res) => {
     const { resumeId } = req.params; // Extract the resumeId from the route
-    const { personalInfo, education, workExperience, projects, skills, awards, certifications } = req.body;
+    const { personalInfo, education, workExperience, projects, skills, awards, certifications } = req.body.formData;
+    console.log(personalInfo)
 
     try {
         const updatedResume = await Resume.findOneAndUpdate(

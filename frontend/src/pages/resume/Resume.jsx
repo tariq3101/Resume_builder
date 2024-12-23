@@ -4,22 +4,26 @@ import ProfessionalTemplate from "../../components/templates/template1/Professio
 import OfficialTemplate from "../../components/templates/template2/OfficialTemplate";
 import ElegantTemplate from "../../components/templates/template3/ElegantTemplate";
 import "./Resume.css";
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import NavBar from "../../components/navbar/NavBar";
 
 const Resume = () => {
     const location = useLocation();
-    const { resume } = location.state || {};
+    const { resumeId, templateId } = location.state || {};
 
     const [formData, setFormData] = useState({
-        title: resume?.title || "",
-        personalInfo: resume?.personalInfo || {
+        title: "",
+        personalInfo: {
             fullName: "",
             email: "",
             phone: "",
             address: "",
             website: "",
-            links: [""] // Default to one empty link field
+            links: [""] 
         },
-        education: resume?.education || [
+        education: [
             {
                 school: "",
                 degree: "",
@@ -29,7 +33,7 @@ const Resume = () => {
                 grade: ""
             }
         ],
-        workExperience: resume?.workExperience || [
+        workExperience: [
             {
                 company: "",
                 role: "",
@@ -38,21 +42,22 @@ const Resume = () => {
                 endDate: ""
             }
         ],
-        skills: resume?.skills || [""], // Corrected typo
-        projects: resume?.projects || [
+        skills: [""], 
+        projects: [
             {
                 title: "",
                 description: "",
                 link: ""
             }
         ],
-        awards: resume?.awards || [
+        awards: [
             {
-                name: "",
-                description: ""
+                title: "",
+                organization: "",
+                date: ""
             }
         ],
-        certifications: resume?.certifications || [
+        certifications: [
             {
                 name: "",
                 issuer: "",
@@ -61,7 +66,25 @@ const Resume = () => {
             }
         ]
     });
-    
+
+    useEffect(() => {
+        const fetchResume = async () => {
+            try {
+                const res = await axios.get(`http://localhost:5000/api/resume/${resumeId}`, { withCredentials: true });
+                // setResume(res.data);
+                setFormData(res.data); 
+            } catch (error) {
+                toast.error('Failed to fetch resume data!', {
+                    position: 'top-center',
+                    autoClose: 3000,
+                    theme: 'light',
+                });
+                console.log(error.response?.data?.message || 'Something went wrong');
+            }
+        };
+
+        fetchResume();
+    }, [resumeId]);
 
     const [expandedSections, setExpandedSections] = useState({
         title: true,
@@ -83,28 +106,26 @@ const Resume = () => {
             const updatedData = { ...prevData };
             const fieldParts = fieldPath.split(".");
             let target = updatedData;
-   
-            // Traverse the object path to find the target field
+
             for (let i = 0; i < fieldParts.length - 1; i++) {
                 const key = fieldParts[i];
-                target[key] = { ...target[key] }; // Ensure immutability
+                target[key] = { ...target[key] }; 
                 target = target[key];
             }
-   
+
             const lastKey = fieldParts[fieldParts.length - 1];
-   
+
             if (action === "add") {
-                target[lastKey] = [...(target[lastKey] || []), newItem]; // Add the new item
+                target[lastKey] = [...(target[lastKey] || []), newItem];
             } else if (action === "remove" && index !== null) {
-                target[lastKey] = target[lastKey].filter((_, i) => i !== index); // Remove the item at index
+                target[lastKey] = target[lastKey].filter((_, i) => i !== index); 
             }
-   
+
             return updatedData;
         });
     };
-   
 
-    // Add and remove functions for dynamic fields
+
     const addFieldHandlers = {
         personalInfoLinks: () => updateArrayField("personalInfo.links", "add", null, "https://"),
         workExperience: () => updateArrayField("workExperience", "add", null, { company: "", role: "", description: "", startDate: "", endDate: "" }),
@@ -125,8 +146,6 @@ const Resume = () => {
         certifications: (index) => updateArrayField("certifications", "remove", index),
     };
 
-
-    // Handle input changes dynamically
     const handleInputChange = (section, field, value, index = null) => {
         setFormData(prevData => {
             const updatedData = { ...prevData };
@@ -141,9 +160,55 @@ const Resume = () => {
         });
     };
 
+    const handleSkillsChange = (index, value) => {
+        setFormData(prevData => {
+            const updatedSkills = [...prevData.skills];
+            updatedSkills[index] = value;
+            return { ...prevData, skills: updatedSkills };
+        });
+    };
+
+    const handleLinksChange = (index, value) => {
+        if (value === "" || value.startsWith("http://") || value.startsWith("https://")) {
+            setFormData((prevData) => {
+                const updatedLinks = [...prevData.personalInfo.links];
+                updatedLinks[index] = value; 
+                return {
+                    ...prevData,
+                    personalInfo: {
+                        ...prevData.personalInfo,
+                        links: updatedLinks,
+                    },
+                };
+            });
+        } else {
+            // Show error only when value does not start with "http://" or "https://"
+            console.error("Invalid URL format. Please start with 'http://' or 'https://'");
+        }
+    };
+
+    const handleAddLink = () => {
+        // Ensure no more than 5 links are added
+        if (formData.personalInfo.links.length < 5) {
+            setFormData((prevData) => {
+                const updatedLinks = [...prevData.personalInfo.links, "https://"]; // Add an empty link as default
+                return {
+                    ...prevData,
+                    personalInfo: {
+                        ...prevData.personalInfo,
+                        links: updatedLinks,
+                    },
+                };
+            });
+        } else {
+            console.error("You cannot add more than 5 links.");
+        }
+    };
+
     const renderTemplate = () => {
-        console.log(resume.templateid)
-        switch (resume.templateid) {
+        console.log(templateId)
+        console.log(formData)
+        switch (templateId) {
             case "1":
                 return <ProfessionalTemplate {...formData} />;
             case "2":
@@ -155,7 +220,30 @@ const Resume = () => {
         }
     };
 
+    const personalDB = async () => {
+        try {
+            const res = await axios.patch(`http://localhost:5000/api/resume/update/${resumeId}`, { formData },
+                { withCredentials: true })
+            console.log(formData)
+            toast.success('Changes Saved', {
+                position: "top-center",
+                autoClose: 3000,
+                theme: "light",
+            });
+
+        } catch (error) {
+            toast.error('Changes failed!', {
+                position: "top-center",
+                autoClose: 3000,
+                theme: "light",
+            });
+            console.log(error.response?.data?.message || 'Something went wrong');
+        }
+    }
+
     return (
+        <div>
+            <NavBar/>
         <div className="resume-page">
             <div className="resume-container">
                 {/* Left Panel */}
@@ -174,7 +262,7 @@ const Resume = () => {
                                     type="text"
                                     placeholder="Title"
                                     value={formData.title}
-                                    onChange={(e) => handleInputChange("title", "title", e.target.value)}
+                                    disabled
                                 />
                             </div>
                         )}
@@ -211,9 +299,7 @@ const Resume = () => {
                                             type="url"
                                             placeholder={`Link ${idx + 1}`}
                                             value={link}
-                                            onChange={(e) =>
-                                                handleInputChange("personalInfo", `links[${idx}]`, e.target.value)
-                                            }
+                                            onChange={(e) => handleLinksChange(idx, e.target.value)} // Ensures proper updating
                                         />
                                         <button
                                             type="button"
@@ -223,13 +309,14 @@ const Resume = () => {
                                         </button>
                                     </div>
                                 ))}
-                                <button type="button" onClick={addFieldHandlers.personalInfoLinks}>
-                                    + Add Link
+                                {formData.personalInfo.links.length < 5 && (
+                                    <button type="button" onClick={handleAddLink}>
+                                        + Add Link
+                                    </button>
+                                )}
+                                <button type="button" onClick={personalDB}>
+                                    Save Personal Info
                                 </button>
-
-
-
-
 
                             </div>
                         )}
@@ -290,6 +377,9 @@ const Resume = () => {
                                 >
                                     + Add Work Experience
                                 </button>
+                                <button type="button" onClick={personalDB}>
+                                    Save Work Experience
+                                </button>
                             </div>
                         )}
                     </div>
@@ -313,6 +403,7 @@ const Resume = () => {
                                             { type: "text", placeholder: "Field of Study", key: "fieldOfStudy" },
                                             { type: "date", placeholder: "Start Date", key: "startDate" },
                                             { type: "date", placeholder: "End Date", key: "endDate" },
+                                            { type: "text", placeholder: "Grade", key: "grade" }
                                         ].map((field) => (
                                             <input
                                                 key={field.key}
@@ -338,6 +429,9 @@ const Resume = () => {
                                 >
                                     + Add Education
                                 </button>
+                                <button type="button" onClick={personalDB}>
+                                    Save Education
+                                </button>
                             </div>
                         )}
                     </div>
@@ -356,7 +450,7 @@ const Resume = () => {
                                             type="text"
                                             placeholder={`Skill ${idx + 1}`}
                                             value={skill}
-                                            onChange={(e) => handleInputChange("skills", idx, e.target.value)}
+                                            onChange={(e) => handleSkillsChange(idx, e.target.value)}
                                         />
                                         <button
                                             className="remove-item-button"
@@ -372,7 +466,11 @@ const Resume = () => {
                                 >
                                     + Add Skill
                                 </button>
+                                <button type="button" onClick={personalDB}>
+                                    Save Skills
+                                </button>
                             </div>
+
                         )}
                     </div>
 
@@ -426,6 +524,9 @@ const Resume = () => {
                                 >
                                     + Add Project
                                 </button>
+                                <button type="button" onClick={personalDB}>
+                                    Save Projects
+                                </button>
                             </div>
                         )}
                     </div>
@@ -443,24 +544,24 @@ const Resume = () => {
                                         <input
                                             type="text"
                                             placeholder="Award Name"
-                                            value={award.name}
+                                            value={award.title}
                                             onChange={(e) =>
-                                                handleInputChange("awards", "name", e.target.value, idx)
+                                                handleInputChange("awards", "title", e.target.value, idx)
                                             }
                                         />
                                         <textarea
-                                            placeholder="Award Description"
-                                            value={award.description}
+                                            placeholder="Award organization"
+                                            value={award.organization}
                                             onChange={(e) =>
-                                                handleInputChange("awards", "description", e.target.value, idx)
+                                                handleInputChange("awards", "organization", e.target.value, idx)
                                             }
                                         />
                                         <input
-                                        type="date"
-                                        value={award.date}
-                                        onChange={(e) =>
-                                            handleInputChange("awards", "date", e.target.value, idx)
-                                        }
+                                            type="date"
+                                            value={award.date}
+                                            onChange={(e) =>
+                                                handleInputChange("awards", "date", e.target.value, idx)
+                                            }
                                         />
                                         <button
                                             className="remove-item-button"
@@ -475,6 +576,9 @@ const Resume = () => {
                                     onClick={addFieldHandlers.awards}
                                 >
                                     + Add Award
+                                </button>
+                                <button type="button" onClick={personalDB}>
+                                    Save Awards
                                 </button>
                             </div>
                         )}
@@ -511,7 +615,7 @@ const Resume = () => {
                                             value={cert.issueDate}
                                             onChange={(e) =>
                                                 handleInputChange("certifications", "issueDate", e.target.value, idx)
-                                                }
+                                            }
                                         />
                                         <button
                                             className="remove-item-button"
@@ -527,6 +631,9 @@ const Resume = () => {
                                 >
                                     + Add Certification
                                 </button>
+                                <button type="button" onClick={personalDB}>
+                                    Save Certifications
+                                </button>
                             </div>
                         )}
                     </div>
@@ -538,6 +645,8 @@ const Resume = () => {
                     {renderTemplate()}
                 </div>
             </div>
+            <ToastContainer />
+        </div>
         </div>
     );
 };

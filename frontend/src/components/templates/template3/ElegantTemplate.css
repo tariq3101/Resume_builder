@@ -1,30 +1,146 @@
+/* Main Container */
 .elegant-container {
-    font-family: "Georgia", serif;
-    max-width: 900px;
-    margin: auto;
-    color: #444;
-    padding: 20px;
-  }
-  
-  .elegant-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .elegant-header h1 {
-    font-size: 2em;
-  }
-  
-  .elegant-header h2 {
-    color: #888;
-  }
-  
-  .elegant-section h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
-  
-  .elegant-section p {
-    margin: 5px 0;
-  }
-  
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 30px;
+  background-color: #f7f7f7;
+}
+
+/* Header Styling */
+.elegant-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.elegant-header h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.elegant-header h2 {
+  font-size: 1.5em;
+  font-weight: 300;
+  color: #7f8c8d;
+  margin-top: 5px;
+}
+
+.contact-info p {
+  font-size: 1em;
+  color: #7f8c8d;
+  margin: 5px 0;
+}
+
+/* Section Styling */
+.elegant-section {
+  margin-bottom: 40px;
+}
+
+.elegant-section h3 {
+  font-size: 1.3em;
+  color: #2c3e50;
+  border-bottom: 2px solid #7f8c8d;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.elegant-section p {
+  font-size: 1em;
+  color: #7f8c8d;
+}
+
+/* Education Section */
+.education-item {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* Work Experience Section */
+.work-item h4 {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.work-item p {
+  font-size: 1em;
+  color: #7f8c8d;
+  margin-bottom: 10px;
+}
+
+/* Certifications Section */
+.certification-item {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.certification-item em {
+  font-size: 0.9em;
+  color: #bdc3c7;
+}
+
+.work-item em {
+  font-size: 16px;
+  color: #bdc3c7;
+}
+
+/* Awards Section */
+.award-item {
+  font-size: 1.1em;
+  color: #7f8c8d;
+  margin-bottom: 10px;
+}
+
+.award-item strong {
+  font-weight: 600;
+}
+
+.award-item em {
+  font-size: 0.9em;
+  color: #bdc3c7;
+}
+
+.award-item p {
+  font-size: 1em;
+  color: #7f8c8d;
+}
+
+.elegant-links h3 {
+  font-size: 1.3em;
+  color: #2c3e50;
+  margin-top: 20px;
+}
+
+.elegant-links p {
+  font-size: 1em;
+  color: #3498db;
+}
+
+.elegant-links a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+.project-item h4 {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.project-item p {
+  font-size: 1em;
+  color: #2c3e50;
+}
+
+.project-item a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+.project-item p strong {
+  font-weight: bold;
+}
