@@ -3,7 +3,7 @@
   color: black;
   border-radius: 10px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-  margin-top: 17px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -12,21 +12,22 @@
 }
 
 .template-card {
-  background-color: white;
-  border: 1px solid #ddd;
+  background-color: #fff;
+  border: 2px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
   width: 250px;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .template-card.selected {
-  border: 3px solid rgb(35, 4, 4);
+  border: 3px solid #1ABC9C;
 }
 
-
 .template-card:hover {
+  transform: translateY(-5px);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -36,19 +37,11 @@
   object-fit: cover;
 }
 
-.template-card button {
-  background-color: #1ABC9C;
-  color: white;
-  border: none;
-  padding: 10px;
+.template-card p {
+  text-align: center;
   font-size: 1rem;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s ease;
-}
-
-.template-card button:hover {
-  background-color: #16A085;
+  color: #333;
+  margin: 10px 0;
 }
 
 .template-input {
@@ -66,6 +59,12 @@
   width: 80%;
   max-width: 400px;
   margin-bottom: 15px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.template-input input:focus {
+  border-color: #1ABC9C;
 }
 
 .template-input button {
@@ -76,21 +75,22 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .template-input button:hover {
   background-color: #16A085;
+  transform: scale(1.05);
 }
 
 .error-message {
   color: #E74C3C;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .dashboard-container {
   padding: 20px;
-  /* max-width: 1200px; */
   margin: 0 auto;
 }
 
