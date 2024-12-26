@@ -299,7 +299,7 @@ const Resume = () => {
                                             type="url"
                                             placeholder={`Link ${idx + 1}`}
                                             value={link}
-                                            onChange={(e) => handleLinksChange(idx, e.target.value)} // Ensures proper updating
+                                            onChange={(e) => handleLinksChange(idx, e.target.value)} 
                                         />
                                         <button
                                             type="button"
