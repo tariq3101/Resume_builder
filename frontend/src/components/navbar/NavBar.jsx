@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import './NavBar.css'
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);

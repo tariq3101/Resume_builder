@@ -12,55 +12,6 @@ body {
   flex-direction: column;
 }
 
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background-color: #2C3E50;
-  color: white;
-  border-radius: 10px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.logo h2 {
-  margin: 0;
-  font-size: 1.8rem;
-}
-
-.nav-links {
-  display: flex;
-  gap: 15px;
-  list-style: none;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-size: 1rem;
-  padding: 8px 15px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.nav-links a:hover {
-  background-color: #1ABC9C;
-}
-
-.hamburger {
-  display: none;
-  cursor: pointer;
-}
-
-.hamburger .bar {
-  width: 30px;
-  height: 4px;
-  background-color: white;
-  margin: 5px 0;
-  border-radius: 2px;
-}
-
 /* Hero Section */
 .hero-section {
   background: linear-gradient(135deg, #2C3E50, #1ABC9C);

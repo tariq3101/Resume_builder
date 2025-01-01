@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavBar from '../../components/navbar/NavBar';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -45,6 +46,8 @@ const Login = () => {
     };
 
     return (
+        <>
+        <NavBar />
         <div className='login-page'>
         <div className="login-container">
             <form onSubmit={handleLogin} aria-busy={loading} aria-disabled={loading} className="login-form">
@@ -76,6 +79,7 @@ const Login = () => {
             <ToastContainer />
         </div>
         </div>
+        </>
     );
 };
 

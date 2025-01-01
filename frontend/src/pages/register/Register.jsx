@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css'; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavBar from '../../components/navbar/NavBar';
 
 const Signup = () => {
     const [name, setName] = useState('');
@@ -46,6 +47,8 @@ const Signup = () => {
     };
 
     return (
+        <>
+        <NavBar />
         <div className='signup-page'>
         <div className="signup-container">
             <h2>Register</h2>
@@ -80,6 +83,7 @@ const Signup = () => {
             <ToastContainer />
         </div>
         </div>
+        </>
     );
 };
 
