@@ -45,7 +45,11 @@ const NavBar = () => {
     };
 
     const handleDashboard = async () => {
-        navigate("/Dashboard")
+        if (isLoggedIn) {
+            navigate("/Dashboard")
+        } else {
+            navigate("/Login")
+        }
     }
 
     return (

@@ -38,16 +38,16 @@ router.post('/login', async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
-        console.log('Plain-text password:', password);
-        console.log('Hashed password:', user.password);
+        // console.log('Plain-text password:', password);
+        // console.log('Hashed password:', user.password);
         const isMatch = await bcrypt.compare(password, user.password);
         console.log(isMatch)
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
-        console.log(user)
+        // console.log(user)
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        console.log(token)
+        // console.log(token)
         res.cookie('token', token, {
             httpOnly: true, 
             secure: process.env.NODE_ENV === 'production', 

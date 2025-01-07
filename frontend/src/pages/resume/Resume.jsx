@@ -87,8 +87,8 @@ const Resume = () => {
     }, [resumeId]);
 
     const [expandedSections, setExpandedSections] = useState({
-        title: true,
-        personalInfo: true,
+        title: false,
+        personalInfo: false,
         workExperience: false,
         education: false,
         skills: false,

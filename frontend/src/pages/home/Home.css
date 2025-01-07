@@ -19,7 +19,7 @@ body {
   text-align: center;
   padding: 60px 20px;
   border-radius: 10px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   margin-top: 17px;
 }
 
@@ -41,13 +41,12 @@ body {
   cursor: pointer;
   border-radius: 5px;
   background-color: #34495E;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cta-button:hover {
   background-color: #4f6478;
-  /* transform: matrix(1, -0.3, 0, 1, 0, 0); */
 }
 
 /* Features Section */
@@ -57,7 +56,7 @@ body {
   padding: 50px 20px;
   text-align: center;
   border-radius: 10px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   margin: 20px 0;
 }
 
@@ -65,7 +64,6 @@ body {
   font-size: 2.5rem;
   margin-bottom: 30px;
   font-weight: bold;
-  color: white;
   text-transform: uppercase;
 }
 
@@ -76,28 +74,24 @@ body {
   justify-content: center;
   gap: 30px;
   flex-wrap: wrap;
-  margin: 0;
 }
 
 .features-section li {
   font-size: 1.2rem;
-  margin-bottom: 10px;
-  width: 280px; /* Adjusts the feature card width */
+  width: 280px;
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 15px;
   background-color: #34495E;
   border-radius: 8px;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .features-section li:hover {
   transform: translateY(-30px);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  /* transform: rotateY(180deg); */
-  /* transform: scale3d(2,2,2) */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .features-section li .feature-icon {
@@ -113,35 +107,6 @@ body {
   margin: 0;
   flex-grow: 1;
 }
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .features-section h2 {
-    font-size: 2rem;
-  }
-
-  .features-section ul {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .features-section li {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .features-section h2 {
-    font-size: 1.8rem;
-  }
-
-  .features-section li {
-    font-size: 1rem;
-    width: 100%;
-  }
-}
-
 
 /* Contact Section */
 .contact-section {
@@ -221,11 +186,7 @@ body {
     font-size: 0.8rem;
   }
 
-  .template-card {
-    width: 90%;
-  }
-
-  .template-input input {
+  .template-card, .template-input input {
     width: 90%;
   }
 }

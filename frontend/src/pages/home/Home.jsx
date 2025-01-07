@@ -1,77 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import React from 'react';
 import './Home.css';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavBar from '../../components/navbar/NavBar';
 
 const Home = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    useEffect(() => {
-        const checkLoginStatus = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/users/isLoggedIn', {
-                    withCredentials: true,
-                });
-
-                setIsLoggedIn(response.data.loggedIn);
-            } catch (error) {
-                console.error('Error checking login status:', error);
-                setIsLoggedIn(false);
-            }
-        };
-
-        checkLoginStatus();
-    }, []);
-
-    const handleLogout = async () => {
-        try {
-            await axios.post('http://localhost:5000/api/users/logout', {}, {
-                withCredentials: true,
-            });
-            setIsLoggedIn(false);
-            Cookies.remove('token');
-            window.location.href = '/';
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
-    };
-
     return (
         <div className="home-page">
-            <nav className="navbar">
-                <div className="logo">
-                    <h2>Resume Builder</h2>
-                </div>
-                <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-                    {!isLoggedIn ? (
-                        <>
-                            <li><a href="login">Login</a></li>
-                            <li><a href="register">Register</a></li>
-                        </>
-                    ) : (
-                        <li>
-                            <a href='#' onClick={handleLogout}>Logout</a>
-                        </li>
-                    )}
-                    <li><a href="#features">Resumes</a></li>
-                    <li><a href="#contact-section">Contact</a></li>
-                </ul>
-                <div className="hamburger" onClick={toggleMenu}>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                    <div className="bar"></div>
-                </div>
-            </nav>
-
+           <NavBar />
             <section className="hero-section">
                 <h1>Welcome to Resume Builder</h1>
                 <p>Build your professional resume in minutes, totally free!</p>
