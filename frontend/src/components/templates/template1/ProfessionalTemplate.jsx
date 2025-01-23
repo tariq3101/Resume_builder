@@ -1,6 +1,19 @@
 import React from "react";
 import "./ProfessionalTemplate.css";
 
+const formatDate = (date) => {
+  if (!date) return "N/A";
+  try {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short", 
+      day: "numeric",
+    });
+  } catch {
+    return "Invalid Date";
+  }
+};
+
 const ProfessionalTemplate = ({
   personalInfo = {},
   education = [],
@@ -12,7 +25,6 @@ const ProfessionalTemplate = ({
 }) => {
   return (
     <div className="professional-container">
-      {/* Wrap the entire printable content with the ref */}
       <div>
         {/* Header Section */}
         <header className="professional-header">
@@ -34,16 +46,12 @@ const ProfessionalTemplate = ({
             <div className="links-section">
               {personalInfo.links.map((link, idx) => {
                 let hostname = "";
-
-                // Validate and extract hostname only if the link is a valid URL
                 try {
                   const url = new URL(link);
-                  hostname = url.hostname.replace("www.", ""); // Extract hostname without 'www.'
-                } catch (error) {
-                  // Handle invalid URL by showing the link itself as a fallback
+                  hostname = url.hostname.replace("www.", "");
+                } catch {
                   hostname = link;
                 }
-
                 return (
                   <p key={idx}>
                     <a
@@ -76,13 +84,7 @@ const ProfessionalTemplate = ({
                 </p>
                 <p className="work-dates">
                   <em>
-                    {job.startDate
-                      ? new Date(job.startDate).toLocaleDateString()
-                      : "Start Date"}{" "}
-                    -
-                    {job.endDate
-                      ? new Date(job.endDate).toLocaleDateString()
-                      : "Present"}
+                    {formatDate(job.startDate)} - {formatDate(job.endDate) || "Present"}
                   </em>
                 </p>
               </div>
@@ -104,13 +106,7 @@ const ProfessionalTemplate = ({
                 </p>
                 <p className="education-dates">
                   <em>
-                    {edu.startDate
-                      ? new Date(edu.startDate).toLocaleDateString()
-                      : "Start Date"}{" "}
-                    -
-                    {edu.endDate
-                      ? new Date(edu.endDate).toLocaleDateString()
-                      : "Present"}
+                    {formatDate(edu.startDate)} - {formatDate(edu.endDate)}
                   </em>
                 </p>
               </div>
@@ -139,11 +135,7 @@ const ProfessionalTemplate = ({
             {certifications.map((cert, idx) => (
               <div key={idx} className="certification-item">
                 <strong>{cert.name || "Certification Name"}</strong> -{" "}
-                {cert.issuer || "Issuer"} (
-                {cert.issueDate
-                  ? new Date(cert.issueDate).toLocaleDateString()
-                  : "Issue Date"}
-                )
+                <em>{cert.issuer || "Issuer"} ({formatDate(cert.issueDate)})</em>
               </div>
             ))}
           </section>
@@ -156,7 +148,7 @@ const ProfessionalTemplate = ({
             {awards.map((award, idx) => (
               <div key={idx} className="award-item">
                 <strong>{award.title || "Award Name"}</strong>
-                {award.date && ` (${new Date(award.date).toLocaleDateString()})`}
+                <em>{award.date && ` (${formatDate(award.date)})`}</em>
                 <p>{award.organization || "Award Organization"}</p>
               </div>
             ))}
@@ -170,9 +162,7 @@ const ProfessionalTemplate = ({
             {projects.map((project, idx) => (
               <div key={idx} className="project-item">
                 <h4>{project.title || "Project Name"}</h4>
-                <p>
-                  <strong>Description:</strong> {project.description || "Project Description"}
-                </p>
+                <p>{project.description || "Project Description"}</p>
                 {project.techStack && (
                   <p>
                     <strong>Technologies:</strong> {project.techStack.join(", ")}
@@ -180,7 +170,6 @@ const ProfessionalTemplate = ({
                 )}
                 {project.link && (
                   <p>
-                    <strong>Project Link:</strong>{" "}
                     <a href={project.link} target="_blank" rel="noopener noreferrer">
                       View Project
                     </a>
