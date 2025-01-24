@@ -56,11 +56,6 @@ body, .elegant-container {
   color: #2980b9;
 }
 
-/* Links */
-.elegant-links {
-  margin-top: 12px;
-}
-
 .link-item {
   color: #3498db;
   margin-right: 12px;
@@ -73,11 +68,6 @@ body, .elegant-container {
   color: #2980b9;
   transform: scale(1.05);
   transition: all 0.3s ease;
-}
-
-/* Section Styles */
-.elegant-section {
-  margin-bottom: 20px;
 }
 
 .section-title {
@@ -109,6 +99,28 @@ body, .elegant-container {
   font-size: 0.9rem;
 }
 
+/* Education Section */
+.elegant-section .education-item {
+  margin-bottom: 12px;
+}
+
+.education-item .item-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.education-item .item-subtitle {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.education-item .item-description {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+/* Skills Section */
 .skills-list {
   list-style-type: none; /* Removes the bullet points */
   padding-left: 0;
@@ -119,42 +131,6 @@ body, .elegant-container {
   margin: 4px 0;
   font-size: 0.9rem;
   position: relative;
-}
-
-.project-link {
-  display: inline-block;
-  margin-top: 4px;
-  font-weight: 600;
-  color: #3498db;
-  text-decoration: none;
-}
-
-.project-link:hover {
-  text-decoration: underline;
-  color: #2980b9;
-  transform: scale(1.05);
-  transition: all 0.3s ease;
-}
-
-/* Awards Section */
-.elegant-section .award-item {
-  margin-bottom: 8px;
-}
-
-.award-item .item-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2c3e50;
-}
-
-.award-item .item-subtitle {
-  font-size: 0.9rem;
-  color: #7f8c8d;
-}
-
-.award-item .item-description {
-  font-size: 0.85rem;
-  color: #444;
 }
 
 /* Projects Section */
@@ -195,6 +171,27 @@ body, .elegant-container {
   transition: all 0.3s ease;
 }
 
+/* Awards Section */
+.elegant-section .award-item {
+  margin-bottom: 8px;
+}
+
+.award-item .item-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.award-item .item-subtitle {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.award-item .item-description {
+  font-size: 0.85rem;
+  color: #444;
+}
+
 /* Transitions */
 a, .project-link, .contact-link {
   transition: all 0.3s ease;
@@ -206,18 +203,13 @@ a:hover {
 
 /* Adjustments for Print */
 @media print {
-  .award-item, .project-item {
+  .award-item, .project-item, .education-item {
     page-break-inside: avoid;
     margin-bottom: 6px;
   }
 
-  .award-item .item-title,
-  .project-item .item-title {
+  .item-title, .item-subtitle, .item-description {
     font-size: 1rem;
-  }
-
-  .project-item .item-description {
-    font-size: 0.85rem;
   }
 
   .project-item .item-tech {
@@ -229,15 +221,7 @@ a:hover {
   }
 
   /* Hide unnecessary elements for print */
-  .award-item .item-description,
-  .project-item .item-description {
-    display: none;
-  }
-
-  .project-item .item-tech {
-    display: none;
-  }
-
+  .project-item .item-tech,
   .project-link {
     display: none;
   }

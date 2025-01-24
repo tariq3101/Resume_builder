@@ -111,6 +111,10 @@ em {
   color: #7f8c8d;
 }
 
+.download-btn {
+  margin-bottom: 20px;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .official-container {
