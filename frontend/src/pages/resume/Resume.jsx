@@ -215,7 +215,7 @@ const Resume = () => {
             case "2":
                 return <OfficialTemplate {...formData} resumeId={resumeId} />;
             case "3":
-                return <ElegantTemplate {...formData} />;
+                return <ElegantTemplate {...formData} resumeId={resumeId} />;
             default:
                 return null;
         }

@@ -1,6 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import "./ElegantTemplate.css";
 import html2pdf from "html2pdf.js";
+import { toPng } from 'html-to-image';
+import axios from "axios";
 
 const ElegantTemplate = ({
   personalInfo,
@@ -10,6 +12,7 @@ const ElegantTemplate = ({
   certifications,
   awards,
   projects,
+  resumeId
 }) => {
 
   
@@ -40,6 +43,57 @@ const formatDate = (date) => {
 
     html2pdf().set(options).from(element).save();
   };
+
+  const base64ToBlob = (base64) => {
+    const byteString = atob(base64.split(",")[1]); // Decode Base64
+    const mimeString = base64.split(",")[0].split(":")[1].split(";")[0]; // Extract MIME type
+    const arrayBuffer = new Uint8Array(byteString.length);
+
+    for (let i = 0; i < byteString.length; i++) {
+      arrayBuffer[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([arrayBuffer], { type: mimeString });
+  };
+
+  const handleCapture = async (elementId) => {
+    const node = document.getElementById(elementId);
+    if (node) {
+      try {
+        const dataUrl = await toPng(node); 
+        if (dataUrl) {
+          const blob = base64ToBlob(dataUrl); 
+          const data = new FormData();
+          data.append("file", blob, "screenshot.png"); 
+
+          try {
+            const response = await axios.post(`http://localhost:5000/upload`, data, {
+              withCredentials: true,
+            });
+            const preview = response.data.url;
+
+            await axios.patch(`http://localhost:5000/api/resume/updateImg/${resumeId}`, { preview }, {
+              withCredentials: true,
+            });
+
+            console.log("Uploaded Image URL:", preview);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      } catch (error) {
+        console.error("Error capturing the image:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleCapture("elegant-container");
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [personalInfo, education, workExperience, skills, certifications, awards, projects, resumeId]);
 
   // Helper to render links
   const renderLinks = (links) =>
@@ -136,7 +190,7 @@ const formatDate = (date) => {
 
   return (
     <div>
-    <div ref={templateRef} className="elegant-container"> 
+    <div ref={templateRef} className="elegant-container" id="elegant-container"> 
       {/* Header Section */}
       <header className="elegant-header">
         <h1 className="main-title">{personalInfo.fullName}</h1>
