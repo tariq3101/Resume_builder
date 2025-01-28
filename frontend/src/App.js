@@ -4,7 +4,7 @@ import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import Resume from './pages/resume/Resume'
 import Dashboard from './pages/dashboard/Dashboard'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   return (

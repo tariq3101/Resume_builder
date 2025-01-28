@@ -66,10 +66,10 @@ const NavBar = () => {
                         </>
                     ) : (
                         <li>
-                            <a href='#' onClick={handleLogout}>Logout</a>
+                            <a href='/' onClick={handleLogout}>Logout</a>
                         </li>
                     )}
-                    <li><a href="" onClick={handleDashboard}>Resumes</a></li>
+                    <li><a href="#t" onClick={handleDashboard}>Resumes</a></li>
                     <li><a href="#contact-section">Contact</a></li>
                 </ul>
                 <div className="hamburger" onClick={toggleMenu}>

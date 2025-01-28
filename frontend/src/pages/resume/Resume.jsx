@@ -11,9 +11,10 @@ import NavBar from "../../components/navbar/NavBar";
 
 const Resume = () => {
     const location = useLocation();
-    const { resumeId, templateId } = location.state || {};
+    const { resumeId, templateId, resume } = location.state || {};
 
     const [formData, setFormData] = useState({
+        preview: "",
         title: "",
         personalInfo: {
             fullName: "",
@@ -210,7 +211,7 @@ const Resume = () => {
         console.log(formData)
         switch (templateId) {
             case "1":
-                return <ProfessionalTemplate {...formData} />;
+                return <ProfessionalTemplate {...formData} resumeId={resumeId} />;
             case "2":
                 return <OfficialTemplate {...formData} />;
             case "3":
@@ -222,7 +223,7 @@ const Resume = () => {
 
     const personalDB = async () => {
         try {
-            const res = await axios.patch(`http://localhost:5000/api/resume/update/${resumeId}`, { formData },
+            await axios.patch(`http://localhost:5000/api/resume/update/${resumeId}`, { formData },
                 { withCredentials: true })
             console.log(formData)
             toast.success('Changes Saved', {

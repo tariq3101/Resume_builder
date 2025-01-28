@@ -5,6 +5,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../../components/navbar/NavBar";
+// import { v2 as cloudinary } from 'cloudinary';
+import { Cloudinary } from 'cloudinary-core';
 
 const Dashboard = () => {
   const [resumes, setResumes] = useState([]);
@@ -13,10 +15,16 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const cloudinary = new Cloudinary({ cloud_name: 'dqibdsn0k' });
+
+  const template_img1 = cloudinary.url('Template1_p5vgin');
+  const template_img2 = cloudinary.url('Template2_w2zuph');
+  const template_img3 = cloudinary.url('Template3_pv6wmp');
+
   const templates = [
-    { id: 1, name: "Template 1", image: "/path/to/template1.jpg" },
-    { id: 2, name: "Template 2", image: "/path/to/template2.jpg" },
-    { id: 3, name: "Template 3", image: "/path/to/template3.jpg" },
+    { id: 1, name: "Professional Template", image: template_img1 },
+    { id: 2, name: "Official Template", image: template_img2 },
+    { id: 3, name: "ElegantTemplate", image: template_img3 },
   ];
 
   const selectTemplate = (id) => {
@@ -47,7 +55,7 @@ const Dashboard = () => {
       });
       const resume = res.data;
       navigate(`/resume/${resume._id}`, {
-        state: { resumeId: resume._id, templateId: resume.templateid },
+        state: { resumeId: resume._id, templateId: resume.templateid }, resume: resume,
       });
     } catch (error) {
       toast.error("Failed to create resume.", {
@@ -75,9 +83,15 @@ const Dashboard = () => {
 
   const handleCardClick = (resume) => {
     navigate(`/resume/${resume._id}`, {
-      state: { resumeId: resume._id, templateId: resume.templateid },
+      state: { resumeId: resume._id, templateId: resume.templateid},
     });
   };
+
+  // const getImageUrl = (publicId) => {
+  //   return cloudinary.url(publicId);
+  // }
+
+  // const ImageUrl = getImageUrl('Resume/Template1_p5vgin');
 
   return (
     <div className="dashboard">
@@ -124,6 +138,7 @@ const Dashboard = () => {
               className="resume-card"
               onClick={() => handleCardClick(resume)}
             >
+              <img src={resume.preview} alt={resume.title} className="template-image" />
               <h3>{resume.title}</h3>
             </div>
           ))}

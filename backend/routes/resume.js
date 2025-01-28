@@ -69,6 +69,33 @@ router.patch('/update/:resumeId', verifyToken, async (req, res) => {
     }
 });
 
+router.patch('/updateImg/:resumeId', verifyToken, async (req, res) => {
+    const { resumeId } = req.params;
+    const { preview } = req.body; 
+
+    if (!preview) {
+        return res.status(400).json({ message: 'Image URL is required' });
+    }
+
+    try {
+        const updatedResume = await Resume.findOneAndUpdate(
+            { _id: resumeId, user: req.user.id }, 
+            { $set: { preview: preview, updatedAt: Date.now() } }, // Update only the imageUrl
+            { new: true }
+        );
+
+        if (!updatedResume) {
+            return res.status(404).json({ message: 'Resume not found' });
+        }
+
+        res.status(200).json(updatedResume);
+    } catch (error) {
+        console.error('Error updating resume:', error);
+        res.status(500).json({ message: 'Error updating resume', error: error.message });
+    }
+});
+
+
 // GET /api/resumes - Retrieve the user's saved resume data
 router.get('/', verifyToken, async (req, res) => {
     try {

@@ -1,6 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./ProfessionalTemplate.css";
 import html2pdf from "html2pdf.js";
+import { toPng } from 'html-to-image';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 // import { jsPDF } from "jspdf";
 
 const formatDate = (date) => {
@@ -23,7 +27,8 @@ const ProfessionalTemplate = ({
   skills = [],
   certifications = [],
   awards = [],
-  projects = []
+  projects = [],
+  resumeId
 }) => {
 
   const containerRef = useRef();
@@ -41,11 +46,62 @@ const ProfessionalTemplate = ({
     html2pdf().set(options).from(element).save();
   };
 
+  const base64ToBlob = (base64) => {
+    const byteString = atob(base64.split(",")[1]); // Decode Base64
+    const mimeString = base64.split(",")[0].split(":")[1].split(";")[0]; // Extract MIME type
+    const arrayBuffer = new Uint8Array(byteString.length);
+
+    for (let i = 0; i < byteString.length; i++) {
+      arrayBuffer[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([arrayBuffer], { type: mimeString });
+  };
+
+  const handleCapture = async (elementId) => {
+    const node = document.getElementById(elementId);
+    if (node) {
+      try {
+        const dataUrl = await toPng(node); 
+        if (dataUrl) {
+          const blob = base64ToBlob(dataUrl); 
+          const data = new FormData();
+          data.append("file", blob, "screenshot.png"); 
+
+          try {
+            const response = await axios.post(`http://localhost:5000/upload`, data, {
+              withCredentials: true,
+            });
+            const preview = response.data.url;
+
+            await axios.patch(`http://localhost:5000/api/resume/updateImg/${resumeId}`, { preview }, {
+              withCredentials: true,
+            });
+
+            console.log("Uploaded Image URL:", preview);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      } catch (error) {
+        console.error("Error capturing the image:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleCapture("professional-container");
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [personalInfo, education, workExperience, skills, certifications, awards, projects, resumeId]);
+
   return (
     <div>
       <button onClick={handleDownloadPDF}>Download Resume as PDF</button>
-      <div className="professional-container" >
-        <div ref={containerRef}> 
+      <div className="professional-container" id="professional-container">
+        <div ref={containerRef}>
           {/* Header Section */}
           <header className="professional-header">
             <h1 className="name">{personalInfo.fullName || "Your Name"}</h1>
@@ -201,6 +257,7 @@ const ProfessionalTemplate = ({
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -6,23 +6,27 @@ const resumeSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
-    title: { 
-        type: String, 
-        required: true 
+    preview: {
+        type: String,
+        required: false
+    },
+    title: {
+        type: String,
+        required: true
     },
     personalInfo: {
-        fullName: { type: String},
-        email: { type: String},
-        phone: { type: String},
+        fullName: { type: String },
+        email: { type: String },
+        phone: { type: String },
         address: { type: String },
         website: { type: String },
         links: {
             type: [String],
             validate: [arrayLimit, '{PATH} exceeds the limit of 5'],
         },
-        jobRole: { 
-            type: String,  
-            trim: true 
+        jobRole: {
+            type: String,
+            trim: true
         }
     },
     education: [
@@ -54,21 +58,21 @@ const resumeSchema = new mongoose.Schema({
     ],
     awards: [
         {
-            title: { type: String},
+            title: { type: String },
             organization: { type: String },
             date: { type: Date },
         }
     ],
     certifications: [
         {
-            name: { type: String},
+            name: { type: String },
             issuer: { type: String },
             issueDate: { type: Date },
             expiryDate: { type: Date },
         }
     ],
-    templateid: { 
-        type: String, 
+    templateid: {
+        type: String,
         required: true
     },
     createdAt: { type: Date, default: Date.now },
