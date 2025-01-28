@@ -55,7 +55,7 @@ const Dashboard = () => {
       });
       const resume = res.data;
       navigate(`/resume/${resume._id}`, {
-        state: { resumeId: resume._id, templateId: resume.templateid }, resume: resume,
+        state: { resumeId: resume._id, templateId: resume.templateid }
       });
     } catch (error) {
       toast.error("Failed to create resume.", {
@@ -87,11 +87,6 @@ const Dashboard = () => {
     });
   };
 
-  // const getImageUrl = (publicId) => {
-  //   return cloudinary.url(publicId);
-  // }
-
-  // const ImageUrl = getImageUrl('Resume/Template1_p5vgin');
 
   return (
     <div className="dashboard">

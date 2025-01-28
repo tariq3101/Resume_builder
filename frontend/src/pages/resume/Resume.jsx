@@ -11,7 +11,7 @@ import NavBar from "../../components/navbar/NavBar";
 
 const Resume = () => {
     const location = useLocation();
-    const { resumeId, templateId, resume } = location.state || {};
+    const { resumeId, templateId} = location.state || {};
 
     const [formData, setFormData] = useState({
         preview: "",
@@ -213,7 +213,7 @@ const Resume = () => {
             case "1":
                 return <ProfessionalTemplate {...formData} resumeId={resumeId} />;
             case "2":
-                return <OfficialTemplate {...formData} />;
+                return <OfficialTemplate {...formData} resumeId={resumeId} />;
             case "3":
                 return <ElegantTemplate {...formData} />;
             default:

@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from "react";
 import "./ProfessionalTemplate.css";
 import html2pdf from "html2pdf.js";
 import { toPng } from 'html-to-image';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 // import { jsPDF } from "jspdf";
 
@@ -257,7 +255,6 @@ const ProfessionalTemplate = ({
           )}
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };
