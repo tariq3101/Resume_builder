@@ -5,8 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../../components/navbar/NavBar";
-// import { v2 as cloudinary } from 'cloudinary';
-import { Cloudinary } from 'cloudinary-core';
+import { Cloudinary } from "cloudinary-core";
 
 const Dashboard = () => {
   const [resumes, setResumes] = useState([]);
@@ -15,16 +14,16 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const cloudinary = new Cloudinary({ cloud_name: 'dqibdsn0k' });
+  const cloudinary = new Cloudinary({ cloud_name: "dqibdsn0k" });
 
-  const template_img1 = cloudinary.url('Template1_p5vgin');
-  const template_img2 = cloudinary.url('Template2_w2zuph');
-  const template_img3 = cloudinary.url('Template3_pv6wmp');
+  const template_img1 = cloudinary.url("Template1_p5vgin");
+  const template_img2 = cloudinary.url("Template2_w2zuph");
+  const template_img3 = cloudinary.url("Template3_pv6wmp");
 
   const templates = [
     { id: 1, name: "Professional Template", image: template_img1 },
     { id: 2, name: "Official Template", image: template_img2 },
-    { id: 3, name: "ElegantTemplate", image: template_img3 },
+    { id: 3, name: "Elegant Template", image: template_img3 },
   ];
 
   const selectTemplate = (id) => {
@@ -55,7 +54,7 @@ const Dashboard = () => {
       });
       const resume = res.data;
       navigate(`/resume/${resume._id}`, {
-        state: { resumeId: resume._id, templateId: resume.templateid }
+        state: { resumeId: resume._id, templateId: resume.templateid },
       });
     } catch (error) {
       toast.error("Failed to create resume.", {
@@ -83,16 +82,16 @@ const Dashboard = () => {
 
   const handleCardClick = (resume) => {
     navigate(`/resume/${resume._id}`, {
-      state: { resumeId: resume._id, templateId: resume.templateid},
+      state: { resumeId: resume._id, templateId: resume.templateid },
     });
   };
-
 
   return (
     <div className="dashboard">
       <NavBar />
 
       <div className="templates-container">
+        <h2 className="section-title1">Choose a Template</h2>
         <div className="templates-list">
           {templates.map((template) => (
             <div
@@ -125,7 +124,7 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-container">
-        <h1>Your Resumes</h1>
+        <h1 className="section-title1">Your Resumes</h1>
         <div className="resumes-grid">
           {resumes.map((resume) => (
             <div

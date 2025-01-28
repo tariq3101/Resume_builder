@@ -19,7 +19,6 @@ const Home = () => {
                 <h2>Features</h2>
                 <ul>
                     <li>✅ Simple and Easy to Use</li>
-                    <li>✅ Auto-Save Feature</li>
                     <li>✅ Real-Time Updates</li>
                     <li>✅ Modern and Professional UI</li>
                 </ul>

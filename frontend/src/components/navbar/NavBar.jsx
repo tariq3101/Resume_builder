@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 import './NavBar.css'
 
 const NavBar = () => {
@@ -56,7 +56,7 @@ const NavBar = () => {
         <div className='nbar'>
             <nav className="navbar">
                 <div className="logo">
-                    <h2>Resume Builder</h2>
+                    <Link to="/" style={{textDecoration: 'none'}}><h2>Resume Builder</h2></Link>
                 </div>
                 <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
                     {!isLoggedIn ? (
