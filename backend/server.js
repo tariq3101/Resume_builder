@@ -27,9 +27,9 @@ mongoose.connect(process.env.MONGO_URI)
 app.get('/', (req, res) => res.send('API is running'))
 
 cloudinary.config({
-    cloud_name: 'dqibdsn0k',
-    api_key: '298542126675361',       // Replace with your API key
-    api_secret: '-CDvDCICpEYOi1EFnsUKFGHJu50', // Replace with your API secret
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,       // Replace with your API key
+    api_secret: process.env.API_SECRET, // Replace with your API secret
   });
 
 const storage = new CloudinaryStorage({
