@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 const { v2: cloudinary } = require("cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
-const path = require("path");
 
 dotenv.config();
 const app = express();

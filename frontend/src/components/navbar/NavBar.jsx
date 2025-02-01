@@ -2,8 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './NavBar.css'
+import logo from './logo.png'
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,7 +57,12 @@ const NavBar = () => {
         <div className='nbar'>
             <nav className="navbar">
                 <div className="logo">
-                    <Link to="/" style={{textDecoration: 'none'}}><h2>CVCraft</h2></Link>
+                    <Link to="/" style={{ textDecoration: 'none' }}>
+                        <img src={logo} alt='CVCraft' style={{ width: "30px", height: "30px" }} />
+                    </Link>
+                    <Link to="/" style={{ textDecoration: 'none' }}>
+                        <h2>CVCraft</h2>
+                    </Link>
                 </div>
                 <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
                     {!isLoggedIn ? (

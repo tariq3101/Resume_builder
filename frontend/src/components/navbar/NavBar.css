@@ -11,6 +11,13 @@
     z-index: 1000;
 }
 
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 .logo h2 {
     margin: 0;
     font-size: 1.8rem;
