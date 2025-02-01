@@ -97,7 +97,7 @@ const ProfessionalTemplate = ({
 
   return (
     <div>
-      <button onClick={handleDownloadPDF}>Download Resume as PDF</button>
+      <button onClick={handleDownloadPDF} style={{ marginLeft: "650px", marginBottom: "20px" }}>Download Resume as PDF</button>
       <div className="professional-container" id="professional-container">
         <div ref={containerRef}>
           {/* Header Section */}

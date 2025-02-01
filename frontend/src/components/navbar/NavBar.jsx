@@ -56,7 +56,7 @@ const NavBar = () => {
         <div className='nbar'>
             <nav className="navbar">
                 <div className="logo">
-                    <Link to="/" style={{textDecoration: 'none'}}><h2>Resume Builder</h2></Link>
+                    <Link to="/" style={{textDecoration: 'none'}}><h2>CVCraft</h2></Link>
                 </div>
                 <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
                     {!isLoggedIn ? (
@@ -70,7 +70,6 @@ const NavBar = () => {
                         </li>
                     )}
                     <li><a href="#t" onClick={handleDashboard}>Resumes</a></li>
-                    <li><a href="#contact-section">Contact</a></li>
                 </ul>
                 <div className="hamburger" onClick={toggleMenu}>
                     <div className="bar"></div>

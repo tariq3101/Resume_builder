@@ -15,26 +15,26 @@ const ElegantTemplate = ({
   resumeId
 }) => {
 
-  
-const formatDate = (date) => {
-  if (!date) return "N/A";
-  try {
-    return new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return "Invalid Date";
-  }
-};
 
-  const templateRef = useRef(); 
+  const formatDate = (date) => {
+    if (!date) return "N/A";
+    try {
+      return new Date(date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    } catch {
+      return "Invalid Date";
+    }
+  };
+
+  const templateRef = useRef();
 
   const handleDownloadPDF = () => {
     const element = templateRef.current;
     const options = {
-      margin: 0, 
+      margin: 0,
       filename: `${personalInfo.fullName.replace(/ /g, "_")}_Resume.pdf`,
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 6 },
@@ -60,11 +60,11 @@ const formatDate = (date) => {
     const node = document.getElementById(elementId);
     if (node) {
       try {
-        const dataUrl = await toPng(node); 
+        const dataUrl = await toPng(node);
         if (dataUrl) {
-          const blob = base64ToBlob(dataUrl); 
+          const blob = base64ToBlob(dataUrl);
           const data = new FormData();
-          data.append("file", blob, "screenshot.png"); 
+          data.append("file", blob, "screenshot.png");
 
           try {
             const response = await axios.post(`http://localhost:5000/upload`, data, {
@@ -190,55 +190,56 @@ const formatDate = (date) => {
 
   return (
     <div>
-    <div ref={templateRef} className="elegant-container" id="elegant-container"> 
-      {/* Header Section */}
-      <header className="elegant-header">
-        <h1 className="main-title">{personalInfo.fullName}</h1>
-        <h2 className="subtitle">{personalInfo.jobRole}</h2>
-        <div className="contact-info">
-          <p>
-            Email:{" "}
-            <a href={`mailto:${personalInfo.email}`} className="contact-link">
-              {personalInfo.email}
-            </a>
-          </p>
-          <p>
-            Phone:{" "}
-            <a href={`tel:${personalInfo.phone}`} className="contact-link">
-              {personalInfo.phone}
-            </a>
-          </p>
-          <p>Address: {personalInfo.address}</p>
-        </div>
-        {renderLinks(personalInfo.links)}
-      </header>
+      <button onClick={handleDownloadPDF} style={{ marginLeft: "700px", marginBottom: "20px" }} >Download PDF</button>
+      <div ref={templateRef} className="elegant-container" id="elegant-container">
+        {/* Header Section */}
+        <header className="elegant-header">
+          <h1 className="main-title">{personalInfo.fullName}</h1>
+          <h2 className="subtitle">{personalInfo.jobRole}</h2>
+          <div className="contact-info">
+            <p>
+              Email:{" "}
+              <a href={`mailto:${personalInfo.email}`} className="contact-link">
+                {personalInfo.email}
+              </a>
+            </p>
+            <p>
+              Phone:{" "}
+              <a href={`tel:${personalInfo.phone}`} className="contact-link">
+                {personalInfo.phone}
+              </a>
+            </p>
+            <p>Address: {personalInfo.address}</p>
+          </div>
+          {renderLinks(personalInfo.links)}
+        </header>
 
-      {/* Sections */}
-      {renderSection("Education", education, renderEducation)}
-      {renderSection("Work Experience", workExperience, renderWorkExperience)}
-      {renderSection("Certifications", certifications, renderCertifications)}
-      {renderSection("Awards", awards, renderAwards)}
+        {/* Sections */}
+        {renderSection("Education", education, renderEducation)}
+        {renderSection("Work Experience", workExperience, renderWorkExperience)}
+        {renderSection("Certifications", certifications, renderCertifications)}
+        {renderSection("Awards", awards, renderAwards)}
 
-      {/* Skills Section */}
-      <section className="elegant-section">
-        <h3 className="section-title">Skills</h3>
-        {skills.length > 0 ? (
-          <ul className="skills-list">
-            {skills.map((skill, idx) => (
-              <li key={idx} className="skill-item">
-                {skill}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No skills listed.</p>
-        )}
-      </section>
+        {/* Skills Section */}
+        <section className="elegant-section">
+          <h3 className="section-title">Skills</h3>
+          {skills.length > 0 ? (
+            <ul className="skills-list">
+              {skills.map((skill, idx) => (
+                <li key={idx} className="skill-item">
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No skills listed.</p>
+          )}
+        </section>
 
-      {renderSection("Projects", projects, renderProjects)}
+        {renderSection("Projects", projects, renderProjects)}
 
-    </div>
-    <button onClick={handleDownloadPDF}>Download PDF</button>
+      </div>
+
     </div>
   );
 };

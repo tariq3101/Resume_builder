@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Home.css';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '../../components/navbar/NavBar';
 
 const Home = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/users/isLoggedIn', {
+                    withCredentials: true,
+                });
+
+                setIsLoggedIn(response.data.loggedIn);
+            } catch (error) {
+                console.error('Error checking login status:', error);
+                setIsLoggedIn(false);
+            }
+        };
+
+        checkLoginStatus();
+    }, []);
+
+
+    const handleLogin = () => {
+        if(isLoggedIn) {
+            window.location.href = '/Dashboard';
+        } else {
+            window.location.href = '/login';
+        }
+    }
+
     return (
         <div className="home-page">
            <NavBar />
             <section className="hero-section">
-                <h1>Welcome to Resume Builder</h1>
+                <h1>Welcome to CVCraft</h1>
                 <p>Build your professional resume in minutes, totally free!</p>
-                <a href="login">
-                    <button className="cta-button">Start Now</button>
-                </a>
+                    <button className="cta-button" onClick={handleLogin}>Start Now</button>
             </section>
 
             <section className="features-section">
@@ -26,13 +53,13 @@ const Home = () => {
 
             <section className="contact-section" id='contact-section'>
                 <h2>Contact Us</h2>
-                <p>Email: <a href="mailto:support@resumebuilder.com">support@resumebuilder.com</a></p>
-                <p>Phone: +1 (123) 456-7890</p>
-                <p>Address: 123 Resume Street, Web City, CodeLand</p>
+                <p>Email: <a href="mailto:khantariq10648@gmail.com">khantariq10648@gmail.com</a></p>
+                <p>Phone: +91 1234567890</p>
+                <p>Address: Undariya Street, Nagpada, Mumbai</p>
             </section>
 
             <footer className="footer">
-                <p>&copy; {new Date().getFullYear()} Resume Builder. All Rights Reserved.</p>
+                <p>&copy; {new Date().getFullYear()} CVCraft. All Rights Reserved.</p>
             </footer>
         </div>
     );

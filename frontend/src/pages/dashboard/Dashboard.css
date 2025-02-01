@@ -158,3 +158,42 @@
 .Toastify__toast {
   font-size: 0.9rem;
 }
+.resume-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.resume-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-actions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.resume-card:hover .card-actions {
+  opacity: 1;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.icon:hover {
+  background: rgba(255, 255, 255, 0.8);
+  color: black;
+}

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../../components/navbar/NavBar";
 import { Cloudinary } from "cloudinary-core";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 const Dashboard = () => {
   const [resumes, setResumes] = useState([]);
@@ -86,6 +87,18 @@ const Dashboard = () => {
     });
   };
 
+  const handleDelete = async (resumeId) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/resume/delete/${resumeId}`, {
+        withCredentials: true,
+      });
+      setResumes(resumes.filter((resume) => resume._id !== resumeId));
+      toast.success("Resume deleted successfully!");
+    } catch (error) {
+      toast.error("Failed to delete resume.");
+    }
+  };
+
   return (
     <div className="dashboard">
       <NavBar />
@@ -127,13 +140,13 @@ const Dashboard = () => {
         <h1 className="section-title1">Your Resumes</h1>
         <div className="resumes-grid">
           {resumes.map((resume) => (
-            <div
-              key={resume._id}
-              className="resume-card"
-              onClick={() => handleCardClick(resume)}
-            >
+            <div key={resume._id} className="resume-card">
               <img src={resume.preview} alt={resume.title} className="template-image" />
               <h3>{resume.title}</h3>
+              <div className="card-actions">
+                <FaEdit onClick={() => handleCardClick(resume)} />
+                <FaTrash onClick={() => handleDelete(resume._id)} />
+              </div>
             </div>
           ))}
         </div>
