@@ -5,8 +5,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../../components/navbar/NavBar";
-import { Cloudinary } from "cloudinary-core";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import image1 from './images/Template1.png'
+import image2 from './images/Template2.png'
+import image3 from './images/Template31.png';
 
 const Dashboard = () => {
   const [resumes, setResumes] = useState([]);
@@ -15,16 +17,10 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const cloudinary = new Cloudinary({ cloud_name: "dqibdsn0k" });
-
-  const template_img1 = cloudinary.url("Template1_p5vgin");
-  const template_img2 = cloudinary.url("Template2_w2zuph");
-  const template_img3 = cloudinary.url("Template3_pv6wmp");
-
   const templates = [
-    { id: 1, name: "Professional Template", image: template_img1 },
-    { id: 2, name: "Official Template", image: template_img2 },
-    { id: 3, name: "Elegant Template", image: template_img3 },
+    { id: 1, name: "Professional Template", image: image1 },
+    { id: 2, name: "Official Template", image: image2 },
+    { id: 3, name: "Elegant Template", image: image3 },
   ];
 
   const selectTemplate = (id) => {
@@ -44,7 +40,7 @@ const Dashboard = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/resume/create",
+        `${process.env.REACT_APP_BACKEND_URL}resume/create`,
         { title, templateid: templateId },
         { withCredentials: true }
       );
@@ -69,7 +65,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchResumes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/resume/", {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}resume/`, {
           withCredentials: true,
         });
         setResumes(response.data);
@@ -89,7 +85,7 @@ const Dashboard = () => {
 
   const handleDelete = async (resumeId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/resume/delete/${resumeId}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}resume/delete/${resumeId}`, {
         withCredentials: true,
       });
       setResumes(resumes.filter((resume) => resume._id !== resumeId));

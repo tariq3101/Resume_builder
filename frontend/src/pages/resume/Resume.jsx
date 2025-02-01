@@ -71,7 +71,7 @@ const Resume = () => {
     useEffect(() => {
         const fetchResume = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/resume/${resumeId}`, { withCredentials: true });
+                const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}resume/${resumeId}`, { withCredentials: true });
                 // setResume(res.data);
                 setFormData(res.data); 
             } catch (error) {
@@ -223,7 +223,7 @@ const Resume = () => {
 
     const personalDB = async () => {
         try {
-            await axios.patch(`http://localhost:5000/api/resume/update/${resumeId}`, { formData },
+            await axios.patch(`${process.env.REACT_APP_BACKEND_URL}resume/update/${resumeId}`, { formData },
                 { withCredentials: true })
             console.log(formData)
             toast.success('Changes Saved', {
@@ -305,6 +305,7 @@ const Resume = () => {
                                         <button
                                             type="button"
                                             onClick={() => removeFieldHandlers.personalInfoLinks(idx)}
+                                            style={{ marginTop: "10px" }}
                                         >
                                             Remove Link
                                         </button>

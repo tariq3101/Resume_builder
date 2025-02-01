@@ -8,6 +8,7 @@
     "cloudinary": "^2.5.1",
     "cloudinary-core": "^2.13.1",
     "cra-template": "1.2.0",
+    "dotenv": "^16.4.7",
     "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.2",

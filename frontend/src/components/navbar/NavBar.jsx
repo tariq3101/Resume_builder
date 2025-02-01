@@ -17,7 +17,7 @@ const NavBar = () => {
     useEffect(() => {
         const checkLoginStatus = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/users/isLoggedIn', {
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}users/isLoggedIn`, {
                     withCredentials: true,
                 });
 
@@ -33,7 +33,7 @@ const NavBar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:5000/api/users/logout', {}, {
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}users/logout`, {}, {
                 withCredentials: true,
             });
             setIsLoggedIn(false);

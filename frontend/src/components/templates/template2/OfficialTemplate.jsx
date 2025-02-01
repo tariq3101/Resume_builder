@@ -44,12 +44,12 @@ const OfficialTemplate = ({ personalInfo, education, workExperience, skills, cer
           data.append("file", blob, "screenshot.png");
 
           try {
-            const response = await axios.post(`http://localhost:5000/upload`, data, {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}upload`, data, {
               withCredentials: true,
             });
             const preview = response.data.url;
 
-            await axios.patch(`http://localhost:5000/api/resume/updateImg/${resumeId}`, { preview }, {
+            await axios.patch(`${process.env.REACT_APP_BACKEND_URL}resume/updateImg/${resumeId}`, { preview }, {
               withCredentials: true,
             });
 

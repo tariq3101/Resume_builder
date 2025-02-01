@@ -38,7 +38,8 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   text-align: center;
-  width: 200px;
+  width: 230px;
+  height: 350px;
 }
 
 .template-card.selected {
@@ -52,7 +53,7 @@
 }
 
 .template-card img {
-  width: 200px;
+  width: 230px;
   height: 300px;
   object-fit: cover;
 }

@@ -28,8 +28,8 @@ app.get('/', (req, res) => res.send('API is running'))
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,       // Replace with your API key
-    api_secret: process.env.API_SECRET, // Replace with your API secret
+    api_key: process.env.API_KEY,       
+    api_secret: process.env.API_SECRET, 
   });
 
 const storage = new CloudinaryStorage({
@@ -42,7 +42,7 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-app.post("/upload", upload.single("file"), (req, res) => {
+app.post("/api/upload", upload.single("file"), (req, res) => {
     console.log("dffdf", req.data); 
     res.status(200).json({
         message: "File uploaded successfully",

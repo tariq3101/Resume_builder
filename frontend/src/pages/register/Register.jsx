@@ -17,7 +17,7 @@ const Signup = () => {
         e.preventDefault();
         setError('');
         try {
-            await axios.post('http://localhost:5000/api/users/register', { name, email, password });
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}users/register`, { name, email, password });
             toast.success('Register successful', {
                 position: "top-center",
                 autoClose: 3000,
