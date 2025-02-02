@@ -12,10 +12,11 @@ const multer = require("multer");
 dotenv.config();
 const app = express();
 
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://cvcraft-rho.vercel.app'],
-    credentials: true,
-}));    
+app.use(
+    cors({
+        origin: ['http://localhost:3000', 'https://cvcraft-rho.vercel.app'],
+        credentials: true,
+    }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -27,26 +28,26 @@ app.get('/', (req, res) => res.send('API is running'))
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,       
-    api_secret: process.env.API_SECRET, 
-  });
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: "Resume", 
-        allowed_formats: ["jpg", "png", "jpeg", "mp4"], 
+        folder: "Resume",
+        allowed_formats: ["jpg", "png", "jpeg", "mp4"],
     },
 });
 
 const upload = multer({ storage: storage });
 
 app.post("/upload", upload.single("file"), (req, res) => {
-    console.log("dffdf", req.data); 
+    console.log("dffdf", req.data);
     res.status(200).json({
         message: "File uploaded successfully",
-        url: req.file.path, 
-    }); 
+        url: req.file.path,
+    });
 });
 
 app.use('/users', userRoutes);
